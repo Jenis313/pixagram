@@ -3,15 +3,14 @@ const app = express();
 const path = require('path')
 const PORT = 7000;
 const cookieParser = require('cookie-parser');
-// const authenticate = require('./middlewares/authentication');
-
+const authenticate = require('./middlewares/authentication');
 // DB connection 
 require('./db_init');
 
 // loade routes
-// const userRouter = require('./controllers/users.controllers');
+const userRouter = require('./controllers/users.controller');
 const authRouter = require('./controllers/auth.controller');
-// const locationRouter = require('./controllers/location.controllers');
+const postRouter = require('./controllers/posts.controller');
 // const indexRouter = require('./controllers/index.controllers');
 // const logoutRouter = require('./controllers/logout.controllers');
 
@@ -31,10 +30,11 @@ app.use(express.static('public'));
 
 // Routes
 // app.use('/', mainRoute);
+
 // app.use('/logout', authenticate, logoutRouter)
-// app.use('/users', authenticate, userRouter)
+app.use('/users', authenticate, userRouter)
 app.use('/auth', authRouter)
-// app.use('/location', authenticate, locationRouter)
+app.use('/post', authenticate, postRouter)
 // app.use('/', authenticate, indexRouter)
 // app.use('/', (req, res, next) => {
 //   res.send('hello')
