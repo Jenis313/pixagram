@@ -6,11 +6,11 @@ const cookieParser = require('cookie-parser');
 // const authenticate = require('./middlewares/authentication');
 
 // DB connection 
-// require('./db_init');
+require('./db_init');
 
 // loade routes
 // const userRouter = require('./controllers/users.controllers');
-// const authRouter = require('./controllers/auth.controllers');
+const authRouter = require('./controllers/auth.controller');
 // const locationRouter = require('./controllers/location.controllers');
 // const indexRouter = require('./controllers/index.controllers');
 // const logoutRouter = require('./controllers/logout.controllers');
@@ -33,7 +33,7 @@ app.use(express.static('public'));
 // app.use('/', mainRoute);
 // app.use('/logout', authenticate, logoutRouter)
 // app.use('/users', authenticate, userRouter)
-// app.use('/auth', authenticate, authRouter)
+app.use('/auth', authRouter)
 // app.use('/location', authenticate, locationRouter)
 // app.use('/', authenticate, indexRouter)
 // app.use('/', (req, res, next) => {
