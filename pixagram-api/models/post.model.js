@@ -5,9 +5,8 @@ const likeSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User' //name of an another collection
     },
-    liked: {
-        type: Boolean,
-        default: false
+    action: {
+        type : String
     }
 
 }, {

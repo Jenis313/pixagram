@@ -10,7 +10,7 @@ module.exports = function(req, res, next){
         token = req.headers['x-access-token']
     if (req.query['token'])
         token = req.query['token']
-    console.log('token-->',token);
+        // console.log('token-->',token);
     if(!token){
         console.log('No token')
         return next();
@@ -21,7 +21,7 @@ module.exports = function(req, res, next){
                 console.log('Not valid token');
                 return next(err);
             }
-            console.log('result--> ', result)
+                // console.log('result--> ', result)
             // console.log('Token verification successful'); 
             // Now check if the token details are up-to-date with the database
             UserModel
@@ -38,7 +38,7 @@ module.exports = function(req, res, next){
                     })
                 }
                 // Case token verified and up-to-date with database
-                console.log('current user--> ',user);
+                    // console.log('current user--> ',user);
                 // Set user's detail to request object
                 req.currentUser = user;
                 next();

@@ -58,10 +58,9 @@ router.route('/:id')
 })
 .put((req, res, next) => {
     // Update and add profile image
-    
+
 })
 .delete((req, res, next) => {
     // If req.params.id === currentUser.id allow user to delete otherwise can't delete
-
 })
 module.exports = router;
