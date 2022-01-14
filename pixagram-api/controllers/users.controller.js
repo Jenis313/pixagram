@@ -23,13 +23,15 @@ router.route('/')
 router.route('/:id/posts')
 .get((req, res, next) => {
     const id = req.params.id;
+    console.log('id ----> ', id)
     PostModel
     .find({
-        _id : id
+        author : id
     })
     .sort({
         _id:-1 //IT reverses the data flow
     })
+    .populate('author', {username : 1, _id: 1})
     // .limit(1) // it limits the result
     // .skip(2) //For skipping
     .exec((err, result) => {

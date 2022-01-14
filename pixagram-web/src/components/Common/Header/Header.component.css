@@ -1,0 +1,76 @@
+header{
+    background-color: var(--white);
+    border-bottom:1px solid var(--border);
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 100%;
+    z-index: 9;
+}
+header>.container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo-img{
+    width:135px;
+}
+.logo a{
+    color: var(--font-color);
+}
+.header--search-bar>form{
+    display: flex;
+    align-items: center;
+    background-color: var(--main-bg);
+    padding: .2em 1em;
+    border: 1px solid var(--border);
+}
+.header--search-bar input, .header--search-bar button{
+    font-size: 1.1em;
+    outline: none;
+    border: none;
+    background-color: var(--main-bg);
+}
+.post-search::placeholder {
+    background-color: var(--main-bg);
+}
+.header--search-bar button i{
+    background-color: var(--main-bg);
+    color: #999;
+    font-size: 1.2em;
+}
+header nav ul{
+    display: flex;
+    align-items: center;
+}
+.login-link{
+    margin-right: 1em;
+}
+header li a{
+    color: inherit;
+    font-weight: 500;
+}
+.login-link a{
+    border: 1px solid var(--green);
+    color: var(--green);
+    padding: .3em 3em;
+    border-radius: 20px;
+}
+.register-link a{
+    padding: .3em 3em;
+    border: 1px solid var(--green);
+    background: var(--green);
+    border-radius: 20px;
+    color: var(--white);
+}
+.profile-link img{
+    width: 35px;
+    height: 35px;
+    border: 1px solid var(--green);
+    border-radius: 50%;
+    margin-right: 1em;
+}
+.logout-link a i{
+    font-size: 1.5em;
+    color: var(--green);
+}

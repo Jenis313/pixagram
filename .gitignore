@@ -1,3 +1,27 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/pixagram-web/node_modules
+/pixagram-web/.pnp
+/pixagram-web/.pnp.js
+
+# testing
+/pixagram-web/coverage
+
+# production
+/pixagram-web/build
+
+# misc
+/pixagram-web/.DS_Store
+/pixagram-web/.env.local
+/pixagram-web/.env.development.local
+/pixagram-web/.env.test.local
+/pixagram-web/.env.production.local
+
+/pixagram-web/npm-debug.log*
+/pixagram-web/yarn-debug.log*
+/pixagram-web/yarn-error.log*
+
 pixagram-api/node_modules
-pixagram-web/node_modules
 deadline.txt
+.env
