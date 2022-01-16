@@ -6,12 +6,10 @@ export default function PostCard() {
     return (
         <div style={{cursor: "pointer"}} className="post"> {/* TODO : Use React router Link here*/}
             <div className="post-user">
-                <div className='post-card-profile-container'>
-                    <ProfilePic
-                        outline = {true}
-                        link = '#'
-                    />
-                </div>
+                <ProfilePic
+                    outline = {true}
+                    link = '#'
+                />
                 <a href="#" className='post-card-profile-username'> <span>iteme</span></a>
             </div>
             <div className="location-img">

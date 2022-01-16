@@ -10,9 +10,7 @@
     padding:1em;
     border-bottom: 1px solid var(--border);
 }
-.post-card-profile-container{
-    margin-right: 1em;
-}
+
 .post-user .post-card-profile-username{
     display: block;
 }

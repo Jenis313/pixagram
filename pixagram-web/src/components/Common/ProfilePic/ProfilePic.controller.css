@@ -1,6 +1,7 @@
+.profile-pic-container{
+    margin-right: 1em;
+}
 .profilePic-img{
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
     border: 1px solid var(--green);
 }

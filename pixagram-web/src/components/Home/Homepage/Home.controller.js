@@ -17,12 +17,10 @@ export default class Home extends Component {
                     {/* <!-- left cont --> */}
                     <section className="main-left">
                         <div className="create-new-location">
-                            <div className='create-new-location-profile-container'>
-                                <ProfilePic 
-                                    outline = {false}
-                                    link = '#'
-                                />
-                            </div>
+                            <ProfilePic 
+                                outline = {false}
+                                link = '#'
+                            />
                             <div className="create-new-location-btn">
                                 <a href="/post/new"><i className="far fa-plus-square"></i> Create a new post</a>
                             </div>

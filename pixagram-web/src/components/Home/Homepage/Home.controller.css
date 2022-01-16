@@ -1,8 +1,8 @@
 /* Special/trending section */
-.home-main{
+/* .home-main{
     margin-top: 5em;
     padding-top: .8em;
-}
+} */
 .home-main>.container{
     display: flex;
     justify-content: space-between;
