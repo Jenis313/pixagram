@@ -13,13 +13,13 @@ export default class Home extends Component {
     render() {
         return (
             <div className='home-main'>
-                <div class="container">
+                <div className="container">
                     {/* <!-- left cont --> */}
                     <section className="main-left">
                         <div className="create-new-location">
                             <ProfilePic 
                                 outline = {false}
-                                link = '#'
+                                link = '/users'
                             />
                             <div className="create-new-location-btn">
                                 <a href="/post/new"><i className="far fa-plus-square"></i> Create a new post</a>

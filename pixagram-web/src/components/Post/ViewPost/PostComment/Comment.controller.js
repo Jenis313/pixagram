@@ -8,7 +8,9 @@ export default function Comment() {
             {/* <% for(let i = 0; i < comments.length; i++) {%> */}
                 <div className="indiv-comment">
                     {/* <a href="/users/<%= comments[i].user._id %>"><img src="./../images/profile.png" alt="profile" className="comment-profile" /></a> */}
-                    <ProfilePic  />
+                    <ProfilePic 
+                        outline = {false}
+                    />
                     <div className="comment-and-name">
                         <h5> Jenis </h5>
                         <small>21-02-2021</small>

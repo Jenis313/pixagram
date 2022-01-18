@@ -2,11 +2,12 @@ import React from "react";
 import './Header.component.css';
 import Logo from './../../../images/pixagram.png'
 import ProfilePic from "../ProfilePic/ProfilePic.controller";
+import { NavLink } from "react-router-dom";
 export default function Header(){
     return (
         <header>
             <div className="container">
-                <div className="header--logo"><a href="/"><img src={Logo} alt="" className="logo-img" /></a></div>
+                <div className="header--logo"><NavLink to = "/home"><img src={Logo} alt="" className="logo-img" /></NavLink></div>
                 <div className="header--search-bar">
                     <form action="#">
                         <div className="search-cont">

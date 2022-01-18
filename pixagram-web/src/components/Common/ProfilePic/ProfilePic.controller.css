@@ -1,6 +1,11 @@
 .profile-pic-container{
     margin-right: 1em;
 }
+.profile-pic-container a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .profilePic-img{
     border-radius: 50%;
     border: 1px solid var(--green);

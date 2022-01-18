@@ -7,16 +7,18 @@ import Register from "./Auth/Register.controller";
 import AddPost from "./Post/AddPost/AddPost.controlller";
 import Post from "./Post/ViewPost/PostModal/Post.controller";
 import Profile from "./Profile/Profile.controller";
+import AppRouting from "./app.routing";
 export default function App(){
     return (
         <div className="main">
-            <Header />
+            {/* <Header /> */}
             {/* <Home /> */}
             {/* <Login /> */}
             {/* <Register /> */}
             {/* <AddPost /> */}
             {/* <Post /> */}
-            <Profile />
+            {/* <Profile /> */}
+            <AppRouting />
         </div>
     )
 }
