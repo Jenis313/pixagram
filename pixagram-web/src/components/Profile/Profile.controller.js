@@ -21,7 +21,7 @@ export default function Profile() {
                         <div className="current-profile-pic">
                             {/* <img src="./../images/profile.png" width="100px" alt=""> */}
                             <ProfilePic 
-                                outline = {false}
+                                outline = {true}
                                 size = {"80px"}
                             />
                         </div>

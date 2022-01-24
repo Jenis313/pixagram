@@ -3,7 +3,7 @@ const router = express.Router();
 const PostModel = require('./../models/post.model');
 const Uploader = require('./../middlewares/Uploader')('image');
 const MAP_POST_REQ = require('./../helpers/map_post_req');
-
+ 
 router.route('/')
 .get((req, res, next) => {
     const condition = {}

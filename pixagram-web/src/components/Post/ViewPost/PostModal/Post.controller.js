@@ -53,11 +53,11 @@ export default class Post extends Component {
                                         <p className="commenter-name">Comment as <span><a href="/users/author">jenispanda</a></span></p>
                                         <form action="/location/add-comment/<%= _id %>" className="comment-form">
                                             <div className="cmt-message comment-input">
-                                                <label for="message"></label>
+                                                <label htmlFor="message"></label>
                                                 <textarea name="message" id="message" cols="30" rows="10" placeholder="Express your thoughts"></textarea>
                                             </div>
                                             <div className="cmt-submit comment-input">
-                                                <label for="cmt-enter"></label>
+                                                <label htmlFor="cmt-enter"></label>
                                                 <button className="cmt-enter" name="cmt-enter" id="cmt-enter">Comment</button>
                                             </div>
                                         </form>

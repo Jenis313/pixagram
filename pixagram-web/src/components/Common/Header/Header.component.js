@@ -2,8 +2,40 @@ import React from "react";
 import './Header.component.css';
 import Logo from './../../../images/pixagram.png'
 import ProfilePic from "../ProfilePic/ProfilePic.controller";
-import { NavLink } from "react-router-dom";
-export default function Header(){
+import { NavLink, withRouter } from "react-router-dom";
+
+function logout(history){
+    localStorage.clear();
+    history.push('/home')
+}
+
+function Header(props){
+    let headerContent;
+    if(localStorage.getItem('token')){
+        headerContent = <ul>
+                            <li className="profile-link">
+                                <ProfilePic
+                                    outline = {true}
+                                    size = "35px"
+                                />
+                            </li>
+                            <li className="logout-link">
+                                <button onClick={() => {
+                                    logout(props.history)
+                                }} href="/logout"><i className="fas fa-sign-out-alt"></i></button>
+                            </li> 
+                        </ul>
+    }else{
+        headerContent = <ul>
+                            <li className="login-link">
+                                <NavLink to = "/login">Login</NavLink>
+                                {/* under the hood Navlink uses a tag so we are giving style to .login-link>a */}
+                            </li>
+                            <li className="register-link">
+                                <NavLink to = "/register">Register</NavLink>
+                            </li>
+                        </ul>
+    }
     return (
         <header>
             <div className="container">
@@ -21,28 +53,10 @@ export default function Header(){
                     </form>
                 </div>
                 <nav>
-                    <ul>
-                        {/* <%if(!currentUser){%> */}
-                            {/* <li className="login-link">
-                                <a href="/auth/login">Login</a>
-                            </li>
-                            <li className="register-link">
-                                <a href="/auth/register">Register</a>
-                            </li> */}
-                        {/* <%}else{%> */}
-                            <li className="profile-link">
-                                <ProfilePic
-                                    outline = {true}
-                                    size = "35px"
-                                />
-                            </li>
-                            <li className="logout-link">
-                                <a href="/logout"><i className="fas fa-sign-out-alt"></i></a>
-                            </li> 
-                        {/* <%}%> */}
-                    </ul>
+                    {headerContent}
                 </nav>
             </div>
         </header>
     )
 }
+export default Header = withRouter(Header)

@@ -3,11 +3,14 @@ const app = express();
 const path = require('path')
 const PORT = 7000;
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 // DB connection 
 require('./db_init');
 const mainRoute = require('./routes/api.routes');
 
 
+// Cors
+app.use(cors())
 
 // Dev Tool
 var logger = require('morgan');
