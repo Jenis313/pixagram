@@ -3,7 +3,7 @@ import './Auth.controller.css';
 import Pixagram from './../../images/pixagram.png';
 import { Link, NavLink } from 'react-router-dom';
 import { httpClient } from '../../utils/httpClient';
-
+import { Notify } from '../../utils/notify';
 const defaultForm = {
     username: '',
     password: ''
@@ -51,7 +51,6 @@ export default class Login extends Component {
             localStorage.setItem('user', JSON.stringify(response.data.user))
             this.props.history.push('/home')
             // notify.showSuccess('Register Successful')
-
         })
         .catch((err) => {
             console.log(err);
