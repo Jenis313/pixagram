@@ -11,7 +11,7 @@ const likeSchema = new Schema({
 
 }, {
     timestamps: true
-})
+}) 
 const commentSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,

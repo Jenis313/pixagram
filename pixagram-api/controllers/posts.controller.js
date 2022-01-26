@@ -170,8 +170,8 @@ router.route('/:id')
         _id : req.params.id
     })
     .populate('author', {username:1, _id: 1 }) //gives username and id
-    .populate('comments.user', {_id: 1}) //gives id only
-    .populate('likes.user', {_id: 1})
+    .populate('comments.user', {fullName : 1, _id: 1}) //gives id only
+    .populate('likes.user', {fullName : 1, _id: 1})
     // https://stackoverflow.com/questions/14594511/mongoose-populate-within-an-object?rq=1
     .exec()
     .then((data) => {

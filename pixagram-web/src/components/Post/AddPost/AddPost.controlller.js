@@ -3,20 +3,12 @@ import './AddPost.controller.css';
 import Sidebar from '../../Common/Sidebar/Sidebar.component';
 
 export default class AddPost extends Component {
+
     render() {
-        return (
-            <div className='new-location-main'>
-                <div className="container">
-                    {/* <!-- left cont --> */}
-                    <section className="main-left">
-                        {/* <%if(!currentUser){%> */}
-                            {/* <div className="post-form-container post-form-no-auth">
-                                <h2 className="login-req-new-post">Please <a href="/auth/login">login</a> to create a new location!!</h2>
-                                <div className="no-auth-location-image">
-                                    <i className="fas fa-edit"></i>
-                                </div>
-                            </div> */}
-                        {/* <%}else{%> */}
+        let content;
+        if(localStorage.getItem('token')){
+            content = 
+                    <>
                         <h1>Create a new location</h1>
                         <div className="post-form-container">
                             <form enctype='multipart/form-data' className="new-location-form" action="/location/new" method="post">
@@ -33,7 +25,7 @@ export default class AddPost extends Component {
                                     <p>Upload an image</p>
                                     <label for="post-image" >Browse files</label>
                                     <input type="file" name="image" id="post-image" accept="image/*"/>
-                                     {/*Make a preview container here  */}
+                                    {/*Make a preview container here  */}
                                 </div>
                                 <div className="input-container-post post-tags-cont">
                                     <label for="post-tags" >Insert upto 5 tags seperated by commas. </label>
@@ -45,11 +37,26 @@ export default class AddPost extends Component {
                                 </div>
                             </form>
                         </div>
-                        {/* <%}%> */}
+                    </>
+        }else{
+            content = 
+                    <div className="post-form-container post-form-no-auth">
+                        <h2 className="login-req-new-post">Please <a href="/auth/login">login</a> to create a new location!!</h2>
+                        <div className="no-auth-location-image">
+                            <i className="fas fa-edit"></i>
+                        </div>
+                    </div> 
+        }
+        return (
+            <div className='new-location-main'>
+                <div className="container">
+                    {/* <!-- left cont --> */}
+                    <section className="main-left">
+                        {content}
                     </section> {/*<!-- Main left -->*/}
+
                     {/* <!-- Right Cont --> */}
                     <section className="main-right">
-                        {/* <%- include('./../partials/right-footer') %>  */}
                         <Sidebar />
                     </section>
                 </div>

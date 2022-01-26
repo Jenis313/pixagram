@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Auth.controller.css';
 import Pixagram from './../../images/pixagram.png';
 import { Link, NavLink } from 'react-router-dom';
+import { httpClient } from '../../utils/httpClient';
 
 const defaultForm = {
     username: '',
@@ -16,6 +17,8 @@ export default class Login extends Component {
                 ...defaultForm
             }
         }
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount(){
         let token = localStorage.getItem('token')
@@ -23,20 +26,51 @@ export default class Login extends Component {
             this.props.history.push('/home')
         }
     }
+    handleChange(e){
+        let {name , value} = e.target;
+        console.log(name, value)
+        this.setState((prevState) => {
+                return {
+                    data : {
+                    ...prevState.data,
+                    [name] : value
+                }
+            }
+        } /*, () => {
+        //    form validation
+        this.validateForm(name);
+        }*/ )
+    }
+    handleSubmit(e){
+        e.preventDefault() 
+        console.log('state---->', this.state);
+        httpClient.POST(`/auth/login`, this.state.data)
+        .then((response) => {
+            console.log('response is -> ', response);
+            localStorage.setItem('token', response.data.token)
+            localStorage.setItem('user', JSON.stringify(response.data.user))
+            this.props.history.push('/home')
+            // notify.showSuccess('Register Successful')
+
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    }
     render() {
         return (
             <div className="auth-main">
                     <div className="form-container">
                         <div className="auth-form-upper">
                             <img src={Pixagram} alt="" className="logo-img" />
-                            <form action="/auth/login" method="post">
+                            <form action="/auth/login" onSubmit={this.handleSubmit} method="post">
                                 <div className="input-container">
                                     <label htmlFor="email" ></label>
-                                    <input type="email" id="email" name="email" placeholder="Email address" />
+                                    <input onChange={this.handleChange} type="email" id="email" name="email" placeholder="Email address" />
                                 </div>
                                 <div className="input-container">
                                     <label htmlFor="password" ></label>
-                                    <input type="password" id="password" name="password" placeholder="Password" />
+                                    <input onChange={this.handleChange} type="password" id="password" name="password" placeholder="Password" />
                                 </div>
                                 <div className="input-container">
                                     <label htmlFor="submit"></label>

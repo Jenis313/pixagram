@@ -16,7 +16,7 @@ export default function AppRouting(props) {
                 <Route exact path= '/home' component={Home}></Route>
                 <Route exact path= '/login' component={Login}></Route>
                 <Route exact path= '/register' component={Register}></Route>
-                <Route exact path= '/users' component={Profile}></Route>
+                <Route exact path= '/users/:userId' component={Profile}></Route>
                 <Route exact path= '/post/new' component={AddPost}></Route>
                 {/* https://stackoverflow.com/questions/47705126/exclude-a-value-for-a-path-parameter-in-react-router-by-type */}
                 <Route exact path= '/post/:postId' component={Post}></Route>

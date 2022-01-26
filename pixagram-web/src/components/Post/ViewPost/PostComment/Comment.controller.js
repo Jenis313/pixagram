@@ -1,7 +1,10 @@
 import React from 'react';
 import ProfilePic from '../../../Common/ProfilePic/ProfilePic.controller';
 import './Comment.controller.css';
-export default function Comment() {
+export default function Comment(props) {
+    let comment = props.comment;
+    console.log('Comments props -->', comment)
+    const createdAt = comment.createdAt.slice(0, 10)
     return (
         <div>
             {/* <% if(comments.length){%>    */}
@@ -12,9 +15,9 @@ export default function Comment() {
                         outline = {false}
                     />
                     <div className="comment-and-name">
-                        <h5> Jenis </h5>
-                        <small>21-02-2021</small>
-                        <p>This is nice comment</p>
+                        <h5> {comment.user.fullName} </h5>
+                        <small>{createdAt}</small>
+                        <p>{comment.message}</p>
                     </div>
                 </div>
             {/* <%}%>                      */}

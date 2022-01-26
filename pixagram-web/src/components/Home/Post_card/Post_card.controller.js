@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './Post_card.controller.css'
 import TestImg from './../../../images/testimg1.jpg'
 import ProfilePic from '../../Common/ProfilePic/ProfilePic.controller';
-import { withRouter } from 'react-router-dom';
+import { NavLink, Redirect, withRouter } from 'react-router-dom';
 const REACT_IMG_URL = process.env.REACT_APP_IMG_URL
 // export default class PostCard extends Component {
 //     constructor(){
@@ -62,23 +62,30 @@ const REACT_IMG_URL = process.env.REACT_APP_IMG_URL
 
 
 // https://stackoverflow.com/questions/27864951/how-to-access-a-childs-state-in-react/27875018#27875018
-function handleChange(location, history){
-        history.push(location)
-        // history.push can only be used with BrowserRouter so that I export withRouter too use props.history.push()
-        // If a component is inside BrowserRouter then props.history.push(location) can be used to redirect to other component on a particular action like onclick etc.
+function handleChange(history, location){
+    history.push(location)
+    // history.push can only be used with BrowserRouter so that I export withRouter too use props.history.push()
+    // If a component is inside BrowserRouter then props.history.push(location) can be used to redirect to other component on a particular action like onclick etc.
 }
  function PostCard(props) {
     console.log('Props is --> ', props)
     let data = props.data;
      
     return (
-        <div onClick={() => { handleChange(`post/${data._id}`, props.history)}} style={{cursor: "pointer"}} className="post"> {/* TODO : Use React router Link here*/}
+        <div onClick={ () => {
+            handleChange(props.history, `post/${data._id}`)
+        } } style={{cursor: "pointer"}} className="post"> {/* TODO : Use React router Link here*/}
             <div className="post-user">
                 <ProfilePic
                     outline = {true}
                     link = '#'
                 />
-                <a href="#" className='post-card-profile-username'> <span>{data.author.username}</span></a>
+                <NavLink onClick = {
+                    (e) => {
+                        e.stopPropagation();
+                    }
+                } to={'/register'} className= "post-card-profile-username"><span>{data.author.username}</span></NavLink>
+                {/* <a href="/register" className='post-card-profile-username'> <span>{data.author.username}</span></a> */}
             </div>
             <div className="location-img">
                 <img src={`${REACT_IMG_URL}/${data.image}`} width="100%" alt="Some name" />

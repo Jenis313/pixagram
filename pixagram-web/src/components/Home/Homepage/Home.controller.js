@@ -38,7 +38,6 @@ export default class Home extends Component {
     }
  
     render() {
-
         let posts; 
          if(this.state.isLoading){
             posts = <Loader />
