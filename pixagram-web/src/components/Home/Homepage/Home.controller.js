@@ -5,6 +5,7 @@ import PostCard from '../Post_card/Post_card.controller';
 import ProfilePic from '../../Common/ProfilePic/ProfilePic.controller';
 import Loader from '../../Common/Loader/Loader.component';
 import { httpClient } from '../../../utils/httpClient';
+import { NavLink } from 'react-router-dom';
 export default class Home extends Component {
     constructor(){
         super();
@@ -62,7 +63,8 @@ export default class Home extends Component {
                                 link = '/users'
                             />
                             <div className="create-new-location-btn">
-                                <a href="/post/new"><i className="far fa-plus-square"></i> Create a new post</a>
+                                <NavLink exact to={"/post/new"}><i className="far fa-plus-square"></i> Create a new post </NavLink>
+                                {/* <a href="/post/new"><i className="far fa-plus-square"></i> Create a new post</a> */}
                             </div>
                         </div>
                         <div className="posts-container">

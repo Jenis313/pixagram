@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './AddPost.controller.css';
 import Sidebar from '../../Common/Sidebar/Sidebar.component';
+import { NavLink } from 'react-router-dom';
 
 export default class AddPost extends Component {
 
@@ -41,7 +42,7 @@ export default class AddPost extends Component {
         }else{
             content = 
                     <div className="post-form-container post-form-no-auth">
-                        <h2 className="login-req-new-post">Please <a href="/auth/login">login</a> to create a new location!!</h2>
+                        <h2 className="login-req-new-post">Please <NavLink exact to = "/login">login</NavLink> to create a new location!!</h2>
                         <div className="no-auth-location-image">
                             <i className="fas fa-edit"></i>
                         </div>

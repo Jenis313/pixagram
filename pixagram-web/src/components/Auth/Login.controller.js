@@ -4,8 +4,9 @@ import Pixagram from './../../images/pixagram.png';
 import { Link, NavLink } from 'react-router-dom';
 import { httpClient } from '../../utils/httpClient';
 import { Notify } from '../../utils/notify';
+import { ErrorHandler } from '../../utils/errorHandler';
 const defaultForm = {
-    username: '',
+    email: '',
     password: ''
 }
 
@@ -53,7 +54,12 @@ export default class Login extends Component {
             // notify.showSuccess('Register Successful')
         })
         .catch((err) => {
-            console.log(err);
+            // console.log(err.response);
+            // if you just log err(from parameter) it will show javascript error not the error from server, to see server error(custom error message from server) you need to log--> err.response (and this is related with axios)
+            // more --> // https://github.com/axios/axios/issues/960#issuecomment-309287911
+            // This error will be properly displayed in the form later but for now just display through error handler function.
+            // TODO: display error properly in the form
+            ErrorHandler(err);
         })
     }
     render() {
