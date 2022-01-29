@@ -68,11 +68,7 @@ export default class Home extends Component {
                             </div>
                         </div>
                         <div className="posts-container">
-
-
-                            
-
-                            {/* Will load post card here */}
+                            {/*load post card */}
                             {posts}
                         </div>
                     </section> 

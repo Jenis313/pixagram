@@ -3,6 +3,8 @@ import './Post_card.controller.css'
 import TestImg from './../../../images/testimg1.jpg'
 import ProfilePic from '../../Common/ProfilePic/ProfilePic.controller';
 import { NavLink, Redirect, withRouter } from 'react-router-dom';
+import { ErrorHandler } from '../../../utils/errorHandler';
+import { httpClient } from '../../../utils/httpClient';
 const REACT_IMG_URL = process.env.REACT_APP_IMG_URL
 
 class PostCard extends Component{
@@ -27,6 +29,7 @@ class PostCard extends Component{
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleLike = this.handleLike.bind(this);
+        this.handleDislike = this.handleDislike.bind(this);
     }
     componentDidMount(){
 
@@ -34,7 +37,6 @@ class PostCard extends Component{
         // console.log('props data --> ', this.props.data);
         this.setState({
             ...this.props.data,
-            likes: this.props.data.likes.length > 0 ?  this.props.data.likes.map(element => element.user._id) : []
         }, () => {
             console.log('stateeeeeeeeeeeeeeeeeeeeeeeeeeee-> ', this.state)
         })
@@ -51,8 +53,49 @@ class PostCard extends Component{
         e.stopPropagation()
         console.log('like userid---> ', userId);
         this.setState((prevState) => ({
-            likes : [...prevState.likes, userId]
-        }))
+            likes : [...prevState.likes, userId],
+            likesCount : prevState.likes.length + 1
+        }), () => {
+            // console.log('state after like', this.state)
+            // post/61dfe50b955985df8f17392b/like
+            const likeData = {
+                likes : this.state.likes,
+                likesCount : this.state.likesCount
+            }
+            httpClient.POST(`/post/${this.state._id}/like`, likeData, true)
+            .then((response) => {
+                console.log('response from server --> ',response)
+            })
+            .catch((err) => {
+                console.log('error in like--> ', err);
+                ErrorHandler(err)
+            })
+        })
+
+    }
+    handleDislike(e){
+        e.stopPropagation()
+        let userId = JSON.parse(localStorage.getItem('user'))._id;
+        console.log('dislike userid---> ', userId);
+        this.setState((prevState) => ({
+            likes : [...prevState.likes].filter(e => e !== userId),
+            likesCount : prevState.likesCount - 1
+        }), () => {
+            console.log('state after dislike', this.state)
+            // post/61dfe50b955985df8f17392b/like
+            const disLikeData = {
+                likes : this.state.likes,
+                likesCount : this.state.likesCount
+            }
+            httpClient.POST(`/post/${this.state._id}/like`, disLikeData, true)
+            .then((response) => {
+                console.log('response from server --> ',response)
+            })
+            .catch((err) => {
+                console.log('error in like--> ', err);
+                ErrorHandler(err)
+            })
+        })
 
     }
     render(){
@@ -71,7 +114,9 @@ class PostCard extends Component{
                         if(isLiked){
                             likeContent = 
                                 <>
-                                    <i className="far fa-thumbs-up post-interact-icon" style={{color : '#1DBF73'}}></i>
+                                    <i onClick={(e) => {
+                                        this.handleDislike(e)
+                                    }}  className="far fa-thumbs-up post-interact-icon" style={{color : '#1DBF73'}}></i>
                                     <p className="post-like-count" style={{color : '#1DBF73'}}><span className='total-like'>{this.state.likesCount}</span> likes</p>
                                 </>
                         }else{

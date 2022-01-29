@@ -1,17 +1,17 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const likeSchema = new Schema({
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: 'User' //name of an another collection
-    },
-    action: {
-        type : String
-    }
+// const likeSchema = new Schema({
+//     user: {
+//         type: Schema.Types.ObjectId,
+//         ref: 'User' //name of an another collection
+//     },
+//     action: {
+//         type : String
+//     }
 
-}, {
-    timestamps: true
-}) 
+// }, {
+//     timestamps: true
+// }) 
 const commentSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,
@@ -33,7 +33,7 @@ const postSchema = new Schema({
     image: {
         type: String
     },
-    likes: [likeSchema],
+    likes: [],
     comments: [commentSchema],
     commentsCount: {
         type: Number,

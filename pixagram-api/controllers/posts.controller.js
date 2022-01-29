@@ -134,21 +134,11 @@ router.route('/:id/like')
                 status : 404
             })
         }
-        const newLike = {};
         // res.send(req.body.liked)
-        if(req.body.action === 'liked'){
-            newLike.user = req.currentUser;
-            newLike.action = req.body.action;
-            post.likesCount = post.likesCount + 1;
-            post.likes.push(newLike)
-        }
-        if(req.body.action === 'disliked'){
-           
-            //Find index of specific object using findIndex method.    
-            let objIndex = post.likes.findIndex((obj => obj.user == req.currentUser.id));
-            post.likes.splice(objIndex, 1);
-            post.likesCount = post.likesCount - 1;
-        }
+        post.likesCount = req.body.likesCount;
+        post.likes = req.body.likes;
+        // post.likes.push(req.currentUser._id.toString())
+        // console.log('currentUser -------------------->',req.currentUser._id.toString())
         post.save((err, result) => {
             if(err){
                 return next(err);
