@@ -4,6 +4,11 @@
     margin-bottom: 2em;
     border: 1px solid var(--border);
 }
+.bigPost{
+    border: none;
+    margin-top: 0;
+    margin-bottom: 0;
+}
 .post-user{
     display: flex;
     align-items: center;

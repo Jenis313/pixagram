@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './Post_card.controller.css'
-import TestImg from './../../../images/testimg1.jpg'
 import ProfilePic from '../../Common/ProfilePic/ProfilePic.controller';
 import { NavLink, Redirect, withRouter } from 'react-router-dom';
 import { ErrorHandler } from '../../../utils/errorHandler';
@@ -32,16 +31,16 @@ class PostCard extends Component{
         this.handleDislike = this.handleDislike.bind(this);
     }
     componentDidMount(){
-
-        console.log('did mount');
-        // console.log('props data --> ', this.props.data);
+        // console.log('did mount PostCard');
+        console.log('props data Post_card--> ', this.props.data);
         this.setState({
             ...this.props.data,
         }, () => {
-            console.log('stateeeeeeeeeeeeeeeeeeeeeeeeeeee-> ', this.state)
+            console.log('State after componentDidMount PostCard component-> ', this.state)
         })
 
     }
+
     // https://stackoverflow.com/questions/27864951/how-to-access-a-childs-state-in-react/27875018#27875018
     handleChange(history, location){
         history.push(location)
@@ -49,12 +48,13 @@ class PostCard extends Component{
         // If a component is inside BrowserRouter then this.props.history.push(location) can be used to redirect to other component on a particular action like onclick etc.history object is automatically passed as a props to a component if that component is inside BrowserRouter
     }
     handleLike(e){
+        // if handleLike is called, put the userId into the likes array of the state and also increase likesCount
         let userId = JSON.parse(localStorage.getItem('user'))._id;
         e.stopPropagation()
-        console.log('like userid---> ', userId);
+        // console.log('like userid---> ', userId);
         this.setState((prevState) => ({
             likes : [...prevState.likes, userId],
-            likesCount : prevState.likes.length + 1
+            likesCount : prevState.likes.length + 1 //don't do likesCount + 1 because initial likesCount is equal to ''
         }), () => {
             // console.log('state after like', this.state)
             // post/61dfe50b955985df8f17392b/like
@@ -64,7 +64,7 @@ class PostCard extends Component{
             }
             httpClient.POST(`/post/${this.state._id}/like`, likeData, true)
             .then((response) => {
-                console.log('response from server --> ',response)
+                // console.log('response from server --> ',response)
             })
             .catch((err) => {
                 console.log('error in like--> ', err);
@@ -76,7 +76,7 @@ class PostCard extends Component{
     handleDislike(e){
         e.stopPropagation()
         let userId = JSON.parse(localStorage.getItem('user'))._id;
-        console.log('dislike userid---> ', userId);
+        // console.log('dislike userid---> ', userId);
         this.setState((prevState) => ({
             likes : [...prevState.likes].filter(e => e !== userId),
             likesCount : prevState.likesCount - 1
@@ -89,7 +89,7 @@ class PostCard extends Component{
             }
             httpClient.POST(`/post/${this.state._id}/like`, disLikeData, true)
             .then((response) => {
-                console.log('response from server --> ',response)
+                // console.log('response from server --> ',response)
             })
             .catch((err) => {
                 console.log('error in like--> ', err);
@@ -106,7 +106,7 @@ class PostCard extends Component{
                         let likeContent;
                         let currentUserId = JSON.parse(localStorage.getItem('user'))._id;
                         let isLiked = this.state.likes.some((element) => {
-                            console.log('element --> ', element)
+                            // console.log('element --> ', element)
                             return element === currentUserId
                             // return value true means this user has already liked the post
                         })
@@ -114,17 +114,24 @@ class PostCard extends Component{
                         if(isLiked){
                             likeContent = 
                                 <>
-                                    <i onClick={(e) => {
-                                        this.handleDislike(e)
-                                    }}  className="far fa-thumbs-up post-interact-icon" style={{color : '#1DBF73'}}></i>
+                                    <i 
+                                        onClick={(e) => {
+                                            this.handleDislike(e)
+                                        }}
+                                        className="far fa-thumbs-up post-interact-icon" style={{color : '#1DBF73', cursor: "pointer"}}
+                                    ></i>
                                     <p className="post-like-count" style={{color : '#1DBF73'}}><span className='total-like'>{this.state.likesCount}</span> likes</p>
                                 </>
                         }else{
                             likeContent = 
                                 <>
-                                    <i onClick={(e) => {
-                                        this.handleLike(e)
-                                    }} className="far fa-thumbs-up post-interact-icon"></i>
+                                    <i 
+                                        onClick={(e) => {
+                                            this.handleLike(e)
+                                        }} 
+                                        style={{cursor: "pointer"}}
+                                        className="far fa-thumbs-up post-interact-icon"
+                                    ></i>
                                     <p className="post-like-count"><span className='total-like'>{this.state.likesCount}</span> likes</p>
                                 </>
                         }
@@ -159,11 +166,23 @@ class PostCard extends Component{
         }
 
 
-        console.log('State PostCard ---> ', this.state)
+        // console.log('State PostCard ---> ', this.state)
         return (
-            <div onClick={ () => {
-                this.handleChange(this.props.history, `post/${this.state._id}`)
-            } } style={{cursor: "pointer"}} className="post"> {/* TODO : Use React router Link here*/}
+            <div 
+                onClick={ //if fromPost is true that means it is being rendered inside Post so, no need to redirect to other pages
+                    this.props.fromPost 
+                    ? null
+                    : () => {
+                        this.handleChange(this.props.history, `post/${this.state._id}`)
+                    }
+                } 
+                style={
+                    this.props.fromPost 
+                        ? {cursor: 'auto'}
+                        : {cursor: "pointer"}
+                    } 
+                className={`post ${this.props.fromPost ? 'bigPost' : ''}`}
+                >{/*div opener ends here*/} 
                 <div className="post-user">
                     <ProfilePic
                         outline = {true}
@@ -190,70 +209,5 @@ class PostCard extends Component{
         )
     }
 }
-//  function PostCard(props) {
-//     console.log('Props is --> ', props)
-//     let data = props.data;
-//     let interactContent;
-//     if(localStorage.getItem('token')){
-//         interactContent = 
-//                 <>
-//                     <div className="post-interact post-like" id = "someid">
-//                         <i onClick={(e) => {
-//                             handleLike(e, data._id)
-//                         }} className="far fa-thumbs-up post-interact-icon"></i>
-//                         <p className="post-like-count"><span className='total-like'>{data.likesCount}</span> likes</p>
-//                     </div>
-//                     <div className="post-interact post-comment">
-//                         <i className="fas fa-comment-alt post-interact-icon"></i>
-//                         <p className="post-like-count"><span>{data.commentsCount}</span> comments</p>
-//                     </div>
-//                     <div className="post-interact post-share">
-//                         <i className="fas fa-share post-interact-icon"></i>
-//                     </div>
-//                 </>
-//     }else{
-//         interactContent = 
-//                 <>
-//                     <div className="post-interact post-like" id = "someid">
-//                         <p className="post-like-count"><span className='total-like'>{data.likesCount}</span> likes</p>
-//                     </div>
-//                     <div className="post-interact post-comment">
-//                         <p className="post-like-count"><span>{data.commentsCount}</span> comments</p>
-//                     </div>
-//                     <div className="post-interact post-share">
-//                         <i className="fas fa-share post-interact-icon"></i>
-//                     </div>
-//                 </>
-//     }
-     
-//     return (
-//         <div onClick={ () => {
-//             handleChange(props.history, `post/${data._id}`)
-//         } } style={{cursor: "pointer"}} className="post"> {/* TODO : Use React router Link here*/}
-//             <div className="post-user">
-//                 <ProfilePic
-//                     outline = {true}
-//                     link = '#'
-//                 />
-//                 <NavLink onClick = {
-//                     (e) => {
-//                         e.stopPropagation();
-//                     }
-//                 } to={'/register'} className= "post-card-profile-username"><span>{data.author.username}</span></NavLink>
-//                 {/* <a href="/register" className='post-card-profile-username'> <span>{data.author.username}</span></a> */}
-//             </div>
-//             <div className="location-img">
-//                 <img src={`${REACT_IMG_URL}/${data.image}`} width="100%" alt="Some name" />
-//             </div>
-//             <div className="post-description">
-//                 <h4 className="location-name">{data.title}</h4>
-//                 <p>{data.description}</p>
-//             </div>
-//             <div className="interact">
-//                 {interactContent}
-//             </div>
-//         </div>
-//     )
-// }
 export default PostCard = withRouter(PostCard)
 // if we cannot put some component inside BrowserRouter we can export like this and it is the same

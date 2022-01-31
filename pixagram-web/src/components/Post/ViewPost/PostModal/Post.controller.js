@@ -6,43 +6,53 @@ import TestImg from './../../../../images/testimg1.jpg'
 import Comment from '../PostComment/Comment.controller';
 import { httpClient } from '../../../../utils/httpClient';
 import { NavLink } from 'react-router-dom';
-const REACT_IMG_URL = process.env.REACT_APP_IMG_URL
+import PostCard from './../../../Home/Post_card/Post_card.controller'
+const REACT_IMG_URL = process.env.REACT_APP_IMG_URL;
+
 
 
 export default class Post extends Component {
     constructor(){
         super()
         this.state = {
-            approved: '',
-            author: {},
-            comments: [],
-            commentsCount: '',
-            createdAt: '',
-            description: '',
-            likes: [],
-            likesCount: '',
-            tags: [],
-            title: '',
-            updatedAt: '',
-            __v: '',
-            _id : ''
+            post : {
+                approved: '',
+                author: {},
+                comments: [],
+                commentsCount: '',
+                createdAt: '',
+                description: '',
+                image: '',
+                likes: [],
+                likesCount: '',
+                tags: [],
+                title: '',
+                updatedAt: '',
+                __v: '',
+                _id : '',
+            },
+            isLoading : true
         }
     }
     componentDidMount(){
+       
         this.postId = this.props.match.params['postId']; //because the route of this component is post/:postId (eg <Route to "post/:postId">) and also this component lives inside BrowserRouter so that we can access it's parameter with props.match.params['parameter name']
         console.log(this.postId)
         httpClient.GET(`/post/${this.postId}`, false)
         .then((post) => {
-            // console.log(' data is ----> ',results.data)
+            console.log(' data is ----> ',post.data)
             this.setState({
-                ...post.data
+                post : {...post.data}
             })
         })
         .catch((err) => {
             console.log('error is ---> ', err);
         })
         .finally(() => {
-            console.log('state--->', this.state)
+            this.setState({
+                isLoading : false
+            })
+            console.log('state post controller--->', this.state)
         })
     }
     render() {
@@ -81,42 +91,15 @@ export default class Post extends Component {
                         {/* <!-- <h1><span>Jenis</span>'s posts</h1> --> */}
                         <div className="posts-container">
                             <div className="post">
-                                <div className="post-user">
-                                    <ProfilePic
-                                        outline = {true}
-                                        link = '#'
-                                    />
-                                    <NavLink to={'#'}>{this.state.author.username}</NavLink>
-                                </div>
-
-                                <div className="location-img">
-                                    <img src={`${REACT_IMG_URL}/${this.state.image}`} width="100%" alt="Some name" />
-                                </div>
-                                <div className="post-description">
-                                    <h4 className="location-name">{this.state.title}</h4>
-                                    <p>{this.state.description}</p>
-                                </div>
-                                <div className="interact">
-                                    {/* maybe some or every etc. if some match in the state render blue else render white */}
-                                    <div className="post-interact post-like" id = "someid">
-                                        <i className="far fa-thumbs-up post-interact-icon"></i>
-                                        <p className="post-like-count"><span className='total-like'>{this.state.likesCount}</span> likes</p>
-                                    </div>
-                                    <div className="post-interact post-comment">
-                                        <i className="fas fa-comment-alt post-interact-icon"></i>
-                                        <p className="post-like-count"><span>{this.state.commentsCount}</span> comments</p>
-                                    </div>
-                                    <div className="post-interact post-share">
-                                        <i className="fas fa-share post-interact-icon"></i>
-                                    </div>
-                                </div>
+                                {/* Load PostCard */}
+                                {this.state.isLoading ? <></> : <PostCard data = {this.state.post} fromPost = {true} /> }
 
                                 <div className="write-comment">
                                     {commentContent}
                                 </div>
                                 <div className="comments-container">
                                     {
-                                        this.state.comments.map((comment, index) => {
+                                        this.state.post.comments.map((comment, index) => {
                                                 return <Comment 
                                                     comment = {comment}
                                                     key = {index}
