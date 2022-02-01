@@ -7,9 +7,8 @@ import Comment from '../PostComment/Comment.controller';
 import { httpClient } from '../../../../utils/httpClient';
 import { NavLink } from 'react-router-dom';
 import PostCard from './../../../Home/Post_card/Post_card.controller'
+import { ErrorHandler } from '../../../../utils/errorHandler';
 const REACT_IMG_URL = process.env.REACT_APP_IMG_URL;
-
-
 
 export default class Post extends Component {
     constructor(){
@@ -31,8 +30,10 @@ export default class Post extends Component {
                 __v: '',
                 _id : '',
             },
-            isLoading : true
+            commentData: {},
+            isLoading : true //it is necessary becausse only after data request is complete it will be set to false and once it is false, data(props) will be passed to PostCard otherwise empty state will go to PostCard and cause errors (https://stackoverflow.com/questions/28785106/reactjs-why-is-passing-the-component-initial-state-a-prop-an-anti-pattern/28785276#28785276 & https://stackoverflow.com/questions/41233458/react-child-component-not-updating-after-parent-state-change)
         }
+        this.handleCommentChange = this.handleCommentChange.bind(this)
     }
     componentDidMount(){
        
@@ -40,7 +41,7 @@ export default class Post extends Component {
         console.log(this.postId)
         httpClient.GET(`/post/${this.postId}`, false)
         .then((post) => {
-            console.log(' data is ----> ',post.data)
+            console.log('Post component get request data ----> ',post.data)
             this.setState({
                 post : {...post.data}
             })
@@ -52,22 +53,59 @@ export default class Post extends Component {
             this.setState({
                 isLoading : false
             })
-            console.log('state post controller--->', this.state)
+            // console.log('state post controller--->', this.state)
         })
     }
+    handleCommentSubmit(event){
+
+        event.preventDefault();
+        console.log('state', this.state)
+        httpClient.POST(`/post/${this.state.post._id}/comment`, this.state.commentData, true)
+        .then((response) => {
+            console.log('response from server comment --> ', response)
+            this.setState({
+                post : response.data,
+                commentData : {
+                    message : ''
+                }
+
+            })
+        })
+        .catch((err) => {
+            console.log('error in comment--> ', err);
+            ErrorHandler(err)
+        })
+        .finally(() => {
+           console.log('stete', this.state)
+        })
+    }
+    handleCommentChange(event){
+        event.preventDefault()
+        console.log('eventtt', event.target.name, event.target.value)
+        this.setState((prevState) => ({
+            commentData : {
+                message : event.target.value,
+                commentsCount : event.target.value === "" ? prevState.post.comments.length :  prevState.post.comments.length + 1
+            }
+        })
+        )
+
+    }
+
     render() {
+        // console.log(JSON.parse(localStorage.getItem('user')).username)
         let commentContent; 
         if(localStorage.getItem('token')){
             commentContent = 
                 <div className="comment-form-container">
                     <p className="commenter-name">Comment as <span>
-                        <NavLink to={`/register`}>imloggedinuser</NavLink>
+                        <NavLink to={`/users/${JSON.parse(localStorage.getItem('user'))._id}`}>{JSON.parse(localStorage.getItem('user')).username}</NavLink>
                         {/* <a href="/users/author">jenispanda</a>*/}
                         </span></p> 
-                    <form action="/location/add-comment/<%= _id %>" className="comment-form">
+                    <form action="" onSubmit = {(e) => {this.handleCommentSubmit(e)}} className="comment-form">
                         <div className="cmt-message comment-input">
                             <label htmlFor="message"></label>
-                            <textarea name="message" id="message" cols="30" rows="10" placeholder="Express your thoughts"></textarea>
+                            <textarea onChange={(e) => {this.handleCommentChange(e)}} name="message"  id="message" cols="30" rows="10" value={this.state.commentData.message} placeholder="Express your thoughts"></textarea>
                         </div>
                         <div className="cmt-submit comment-input">
                             <label htmlFor="cmt-enter"></label>
@@ -99,7 +137,7 @@ export default class Post extends Component {
                                 </div>
                                 <div className="comments-container">
                                     {
-                                        this.state.post.comments.map((comment, index) => {
+                                        this.state.post.comments.reverse().map((comment, index) => {
                                                 return <Comment 
                                                     comment = {comment}
                                                     key = {index}
@@ -114,7 +152,6 @@ export default class Post extends Component {
                     {/* <!-- Right Cont --> */}
                     <section className="main-right">
                         <Sidebar />
-                        {/* <%- include('./../partials/right-footer') %>  */}
                     </section>
                 </div>
             </div>

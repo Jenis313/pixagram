@@ -1,3 +1,4 @@
+// While making a child component try to use as much as props as you can and don't try to create state which comes from props because if the you make state in child component based on props the the component will not rerender even after the change in props 
 import React, { Component } from 'react';
 import './Post_card.controller.css'
 import ProfilePic from '../../Common/ProfilePic/ProfilePic.controller';
@@ -10,33 +11,20 @@ class PostCard extends Component{
     constructor(){
         super()
         this.state = {
-            approved: '',
-            author: {
-                _id: '', 
-                username: ''
-            },
-            comments: [],
-            commentsCount: '',
-            createdAt: '',
-            description: '',
-            image: '',
             likes: [],
             likesCount: '',
-            tags: [],
-            title: '',
-            _id: ''
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleLike = this.handleLike.bind(this);
         this.handleDislike = this.handleDislike.bind(this);
     }
     componentDidMount(){
-        // console.log('did mount PostCard');
-        console.log('props data Post_card--> ', this.props.data);
+        // console.log('props data Post_card--> ', this.props.data);
         this.setState({
-            ...this.props.data,
+            likes : [...this.props.data.likes],
+            likesCount : this.props.data.likesCount
         }, () => {
-            console.log('State after componentDidMount PostCard component-> ', this.state)
+            // console.log('State after componentDidMount PostCard component-> ', this.state)
         })
 
     }
@@ -62,7 +50,7 @@ class PostCard extends Component{
                 likes : this.state.likes,
                 likesCount : this.state.likesCount
             }
-            httpClient.POST(`/post/${this.state._id}/like`, likeData, true)
+            httpClient.POST(`/post/${this.props.data._id}/like`, likeData, true)
             .then((response) => {
                 // console.log('response from server --> ',response)
             })
@@ -81,13 +69,12 @@ class PostCard extends Component{
             likes : [...prevState.likes].filter(e => e !== userId),
             likesCount : prevState.likesCount - 1
         }), () => {
-            console.log('state after dislike', this.state)
-            // post/61dfe50b955985df8f17392b/like
+            // console.log('state after dislike', this.state)
             const disLikeData = {
                 likes : this.state.likes,
                 likesCount : this.state.likesCount
             }
-            httpClient.POST(`/post/${this.state._id}/like`, disLikeData, true)
+            httpClient.POST(`/post/${this.props.data._id}/like`, disLikeData, true)
             .then((response) => {
                 // console.log('response from server --> ',response)
             })
@@ -99,7 +86,9 @@ class PostCard extends Component{
 
     }
     render(){
-    // If user is logged in can interect if not can't interect just see number of likes and comments 
+        let postData = this.props.data;
+        // console.log('postData --> ', postData)
+        // If user is logged in can interect if not can't interect just see number of likes and comments 
         let interactContent;
         if(localStorage.getItem('token')){
                         ///////////////////////////////////////////////////////////////// prepare data for interactContent
@@ -144,7 +133,7 @@ class PostCard extends Component{
                     </div>
                     <div className="post-interact post-comment">
                         <i className="fas fa-comment-alt post-interact-icon"></i>
-                        <p className="post-like-count"><span>{this.state.commentsCount}</span> comments</p>
+                        <p className="post-like-count"><span>{postData.commentsCount}</span> comments</p>
                     </div>
                     <div className="post-interact post-share">
                         <i className="fas fa-share post-interact-icon"></i>
@@ -154,10 +143,10 @@ class PostCard extends Component{
             interactContent = 
                 <>
                     <div className="post-interact post-like" id = "someid">
-                        <p className="post-like-count"><span className='total-like'>{this.state.likesCount}</span> likes</p>
+                        <p className="post-like-count"><span className='total-like'>{postData.likesCount}</span> likes</p>
                     </div>
                     <div className="post-interact post-comment">
-                        <p className="post-like-count"><span>{this.state.commentsCount}</span> comments</p>
+                        <p className="post-like-count"><span>{postData.commentsCount}</span> comments</p>
                     </div>
                     <div className="post-interact post-share">
                         <i className="fas fa-share post-interact-icon"></i>
@@ -166,14 +155,14 @@ class PostCard extends Component{
         }
 
 
-        // console.log('State PostCard ---> ', this.state)
+        // console.log('State PostCard ---> ', postData)
         return (
             <div 
                 onClick={ //if fromPost is true that means it is being rendered inside Post so, no need to redirect to other pages
                     this.props.fromPost 
                     ? null
                     : () => {
-                        this.handleChange(this.props.history, `post/${this.state._id}`)
+                        this.handleChange(this.props.history, `post/${postData._id}`)
                     }
                 } 
                 style={
@@ -192,15 +181,14 @@ class PostCard extends Component{
                         (e) => {
                             e.stopPropagation();
                         }
-                    } to={'/register'} className= "post-card-profile-username"><span>{this.state.author.username}</span></NavLink>
-                    {/* <a href="/register" className='post-card-profile-username'> <span>{this.state.author.username}</span></a> */}
+                    } to={'/register'} className= "post-card-profile-username"><span>{postData.author.username}</span></NavLink>
                 </div>
                 <div className="location-img">
-                    <img src={`${REACT_IMG_URL}/${this.state.image}`} width="100%" alt="Some name" />
+                    <img src={`${REACT_IMG_URL}/${postData.image}`} width="100%" alt="Some name" />
                 </div>
                 <div className="post-description">
-                    <h4 className="location-name">{this.state.title}</h4>
-                    <p>{this.state.description}</p>
+                    <h4 className="location-name">{postData.title}</h4>
+                    <p>{postData.description}</p>
                 </div>
                 <div className="interact">
                     {interactContent}

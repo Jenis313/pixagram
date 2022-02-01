@@ -5,6 +5,8 @@
     border: 1px solid var(--border);
 }
 .bigPost{
+
+    /* if the div has bigPost class that means it is being rendered in Post Component and there is no need to put border and margins but other things are exactly the same and in here(css) .bigPost must be under .post otherwise .post overrides */
     border: none;
     margin-top: 0;
     margin-bottom: 0;

@@ -89,10 +89,13 @@ router.route('/:id/comment')
         const postId = req.params.id
         console.log('comments body --> ', req.body);
         PostModel
-        .findOne({_id : postId}, (err, post) => {
-            if(err){
-                return next(err);
-            }
+        .findOne({_id : postId})
+        // .populate('author', {username:1, _id: 1 }) //gives username and id
+        // .populate('comments.user', {fullName : 1, _id: 1}) //gives id only
+        // .populate('likes.user', {fullName : 1, _id: 1})
+        // https://stackoverflow.com/questions/14594511/mongoose-populate-within-an-object?rq=1
+        // .exec()
+        .then((post) => {
             if(!post){
                 return next({
                     msg: 'post not found',
@@ -102,15 +105,22 @@ router.route('/:id/comment')
             const newComment = {};
             newComment.user = req.currentUser.id;
             newComment.message = req.body.message;
-            post.commentsCount = post.comments.length + 1;
+            post.commentsCount = req.body.commentsCount;
             post.comments.push(newComment);
             post.save((err, result) => {
                 if(err){
                     return next(err);
                 }
-                res.json(result);
-            })
+                result.populate('comments.user', {fullName : 1, _id: 1}, function(err, response) {
+                    res.json(response)
+                   });
+            }) //
+
         })
+        .catch((err) => {
+            return next(err);
+        }) 
+        
     }
 })
 

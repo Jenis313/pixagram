@@ -3,7 +3,7 @@ import ProfilePic from '../../../Common/ProfilePic/ProfilePic.controller';
 import './Comment.controller.css';
 export default function Comment(props) {
     let comment = props.comment;
-    console.log('Comments props -->', comment)
+    // console.log('Comments props -->', comment)
     const createdAt = comment.createdAt.slice(0, 10)
     return (
         <div>
