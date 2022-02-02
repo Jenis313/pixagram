@@ -43,7 +43,7 @@ router.route('/')
 })
 
 router.route('/new')
-.post(Uploader.single('image'), (req, res, next) => {
+.post(Uploader.array('images'), (req, res, next) => {
     if(!req.currentUser){
         next({
             msg: 'Not logged in',
@@ -58,9 +58,16 @@ router.route('/new')
                 status: 406
             });
         }
-        if(req.file){
-            req.body.image = req.file.filename;
+        if(req.files&&req.files.length){ //it means it has image in the request
+            req.body.image =  req.files[0].filename //there will be only one image in this post request so I am doing this otherwise I would do something like
+            // req.body.images = req.files.map((item) => {
+            //     return item.filename;
+            // })
+           //we are adding the value in the request body object because this is a middleware and it can add update and delete request.
         }
+        // if(req.file){
+        //     req.body.image = req.file.filename; //It can be used in our case but if we want to use multiple images it won't work so above condition works for single multiple images
+        // }
         const newPost = new PostModel({});
         // Map request object
         MAP_POST_REQ(req.body, newPost);

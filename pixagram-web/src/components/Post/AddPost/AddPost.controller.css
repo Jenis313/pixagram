@@ -50,6 +50,23 @@
     font-weight: 200;
     color: var(--green);
 }
+.previewImageAddPost{
+    margin: 1em auto;
+    width: 150px;
+    text-align: center;
+    position: relative;
+}
+.previewImageAddPost> i{
+    position: absolute;
+    top: -1.2em;
+    right: -1.2em;
+    font-size: 1.4em;
+    font-weight: 100;
+    color: var(--green);
+}
+.previewImageAddPost>img{
+    width: 100%;
+}
 .post-tags-cont label{
     display: block;
     font-size: .87em;

@@ -49,11 +49,11 @@ const UPLOAD = (method, url, data = {}, files = []) => {
         const formData = new FormData();
 
         // append files in form data
-        // This will work for both single and multiple files
+        // This will work for both single and multiple files(it's like filling form)
         files.forEach(item => {
             formData.append('images', item, item.name)
         })
-        // append textual data in formdata
+        // append textual data in formdata(it's like filling form)
         for(let key in data){
             formData.append(key, data[key])
         }
