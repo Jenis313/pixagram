@@ -7,14 +7,15 @@ export default function ProfilePic(props) {
     // this takes 
     const image = props.img ? props.img : CommonProfilePic;
     const size = props.size ? props.size : "50px";
+    const link = props.link ? props.link : '#';
     const profile = props.outline
                     ? <div className='profile-pic-container'>
-                        <NavLink to = "/users">
+                        <NavLink to = {link}>
                             <img className='profilePic-img-with-outline' src={image} width={size} height={size} alt="" />
                         </NavLink>
                       </div>
                     : <div className='profile-pic-container'>
-                        <NavLink to = "/users">
+                        <NavLink to = {link}>
                             <img className='profilePic-img-without-outline' src={image} width={size} height={size} alt="" />
                         </NavLink>
                       </div>

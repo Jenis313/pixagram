@@ -52,7 +52,10 @@ router.route('/:id')
         })
         .exec((err, result) => {
             if(err){
-                next(err);
+                next({
+                    msg : 'User not found',
+                    status : 404
+                });
                 return
             }
             res.json(result);

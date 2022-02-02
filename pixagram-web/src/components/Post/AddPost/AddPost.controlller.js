@@ -10,16 +10,16 @@ export default class AddPost extends Component {
         if(localStorage.getItem('token')){
             content = 
                     <>
-                        <h1>Create a new location</h1>
+                        <h1>Create a new post</h1>
                         <div className="post-form-container">
-                            <form enctype='multipart/form-data' className="new-location-form" action="/location/new" method="post">
+                            <form enctype='multipart/form-data' className="new-post-form" action="/" method="post">
                                 <div className="input-container-post">
                                     <label for="post-name" ></label>
-                                    <input type="text" id="post-name" name="name" placeholder="Location name" required />
+                                    <input type="text" id="post-name" name="name" placeholder="Post title" required />
                                 </div>
                                 <div className="input-container-post">
                                     <label for="post-description" ></label>
-                                    <textarea name="description" id="post-description" cols="30" rows="10" placeholder="Describe how you felt when you visited this place..." required></textarea>
+                                    <textarea name="description" id="post-description" cols="30" rows="10" placeholder="Post description..." required></textarea>
                                 </div>
                                 <div className="input-container-post upload-image">
                                     <div className="icon"><i className="far fa-image"></i></div>
@@ -30,7 +30,7 @@ export default class AddPost extends Component {
                                 </div>
                                 <div className="input-container-post post-tags-cont">
                                     <label for="post-tags" >Insert upto 5 tags seperated by commas. </label>
-                                    <input type="text" id="post-tags" name="tags" placeholder="Melbourne, Flinders Street, Fed Sauare, etc." required />
+                                    <input type="text" id="post-tags" name="tags" placeholder="" required />
                                 </div>
                                 <div className="input-container">
                                     <label for="post-submit"></label>
@@ -42,14 +42,14 @@ export default class AddPost extends Component {
         }else{
             content = 
                     <div className="post-form-container post-form-no-auth">
-                        <h2 className="login-req-new-post">Please <NavLink exact to = "/login">login</NavLink> to create a new location!!</h2>
+                        <h2 className="login-req-new-post">Please <NavLink exact to = "/login">login</NavLink> to create a new post!!</h2>
                         <div className="no-auth-location-image">
                             <i className="fas fa-edit"></i>
                         </div>
                     </div> 
         }
         return (
-            <div className='new-location-main'>
+            <div className='new-post-main'>
                 <div className="container">
                     {/* <!-- left cont --> */}
                     <section className="main-left">

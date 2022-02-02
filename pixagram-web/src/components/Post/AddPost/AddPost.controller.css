@@ -1,8 +1,8 @@
-.new-location-main>.container{
+.new-post-main>.container{
     display: flex;
     justify-content: space-between;
 }
-.new-location-main .main-left h1{
+.new-post-main .main-left h1{
     font-size: 1.3em;
     font-weight: 400;
     margin-bottom: 1em;

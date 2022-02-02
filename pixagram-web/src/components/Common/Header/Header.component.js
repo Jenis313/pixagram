@@ -17,6 +17,7 @@ function Header(props){
                                 <ProfilePic
                                     outline = {true}
                                     size = "35px"
+                                    link = {`/users/${JSON.parse(localStorage.getItem('user'))._id}`}
                                 />
                             </li>
                             <li className="logout-link">

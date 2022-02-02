@@ -178,7 +178,7 @@ router.route('/:id')
         res.json(data);
     })
     .catch((err) => {
-        next(err);
+        next(err)
     })
 })
 .put((req, res, next) => {

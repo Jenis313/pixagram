@@ -3,7 +3,6 @@ import './Auth.controller.css';
 import Pixagram from './../../images/pixagram.png';
 import { Link, NavLink } from 'react-router-dom';
 import { httpClient } from '../../utils/httpClient';
-import { Notify } from '../../utils/notify';
 import { ErrorHandler } from '../../utils/errorHandler';
 const defaultForm = {
     email: '',

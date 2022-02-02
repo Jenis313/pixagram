@@ -1,4 +1,4 @@
-
+import React from "react";
 
 import { Notify } from "./notify";
 export const ErrorHandler = (error) => {

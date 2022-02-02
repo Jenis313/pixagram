@@ -162,7 +162,7 @@ class PostCard extends Component{
                     this.props.fromPost 
                     ? null
                     : () => {
-                        this.handleChange(this.props.history, `post/${postData._id}`)
+                        this.handleChange(this.props.history, `/post/${postData._id}`)
                     }
                 } 
                 style={
@@ -181,7 +181,7 @@ class PostCard extends Component{
                         (e) => {
                             e.stopPropagation();
                         }
-                    } to={'/register'} className= "post-card-profile-username"><span>{postData.author.username}</span></NavLink>
+                    } to={`/users/${postData.author._id}`} className= "post-card-profile-username"><span>{postData.author.username}</span></NavLink>
                 </div>
                 <div className="location-img">
                     <img src={`${REACT_IMG_URL}/${postData.image}`} width="100%" alt="Some name" />
