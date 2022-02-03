@@ -4,6 +4,7 @@ import Pixagram from './../../images/pixagram.png';
 import { httpClient } from '../../utils/httpClient';
 import { NavLink } from 'react-router-dom';
 import { ErrorHandler } from '../../utils/errorHandler';
+import { Notify } from '../../utils/notify';
 // localStorage.getItem('myData');
 const defaultForm = {
     fullName : '',
@@ -17,6 +18,9 @@ export default class Register extends Component {
         this.state = {
             data : {
                 ...defaultForm
+            },
+            errors : {
+                ...defaultForm
             }
         }
         this.handleChange = this.handleChange.bind(this);
@@ -28,59 +32,75 @@ export default class Register extends Component {
         this.setState((prevState) => {
                 return {
                     data : {
-                    ...prevState.data,
-                    [name] : value
-                }
+                        ...prevState.data,
+                        [name] : value
+                    },
+                    errors : {
+                        ...prevState.errors,
+                        [name] : ''
+                    }
             }
-        } /*, () => {
-        //    form validation
-        this.validateForm(name);
-        }*/ )
+        })
+
     }
     handleSubmit(e){
         e.preventDefault() 
-        console.log('state---->', this.state);
+        // console.log('state---->', this.state);
         httpClient.POST(`/auth/register`, this.state.data)
         .then((response) => {
-            console.log('response is -> ', response);
+            // console.log('response is -> ', response);
             localStorage.setItem('token', response.data.token)
             localStorage.setItem('user', JSON.stringify(response.data.user))
             this.props.history.push('/home')
-            // notify.showSuccess('Register Successful')
+            Notify.showSuccess('Register Successful')
 
         })
         .catch((err) => {
-            // console.log(err.response);
-            // if you just log err(from parameter) it will show javascript error not the error from server, to see server error(custom error message from server) you need to log--> err.response (and this is related with axios)
-            // more --> // https://github.com/axios/axios/issues/960#issuecomment-309287911
-            // This error will be properly displayed in the form later but for now just display through error handler function.
-            // TODO: display error properly in the form
-            ErrorHandler(err);
+            // TODO : This error is actually created by expresss Validator there may be other errors which may need to be handled in other ways
+            console.log(err.response.data.err);
+            this.setError(err.response.data.err);
+
+        })
+    }
+    setError(errArray){
+        // set errors to the state sent by server(express-validator)
+        errArray.forEach((error) => {
+            this.setState((prevState) => ({
+                errors : {
+                    ...prevState.errors,
+                    [error.param] : error.msg
+                }
+            }))
         })
     }
     render() {
+        console.log('stateeee --> ', this.state);
         return (
             <div className="auth-main">
                     <div className="form-container">
                         <div className="auth-form-upper">
                             <img src={Pixagram} alt="" className="logo-img" />
-                            <p className="register-descript">Register to see beautiful places around the world!</p>
+                            <p className="register-descript">Register to add posts and interact with posts!</p>
                             <form onSubmit={this.handleSubmit} method="post">
                                 <div className="input-container">
                                     <label htmlFor="email" ></label>
                                     <input type="email" id="email" name="email" placeholder="Email address" onChange={this.handleChange} />
+                                    <p className='register-form-error'>{this.state.errors.email}</p>
                                 </div>
                                 <div className="input-container">
                                     <label htmlFor="fullName" ></label>
                                     <input type="text" id="fullName" name ="fullName" placeholder="Full name" onChange={this.handleChange} />
+                                    <p className='register-form-error'>{this.state.errors.fullName}</p>
                                 </div>
                                 <div className="input-container">
                                     <label htmlFor="username" ></label>
                                     <input type="text" id="username" name="username" placeholder="Username" onChange={this.handleChange} />
+                                    <p className='register-form-error'>{this.state.errors.username}</p>
                                 </div>
                                 <div className="input-container">
                                     <label htmlFor="password" ></label>
                                     <input type="password" id="password" name="password" placeholder="Password" onChange={this.handleChange} />
+                                    <p className='register-form-error'>{this.state.errors.password}</p>
                                 </div>
                                 <div className="input-container">
                                     <label htmlFor="submit"></label>

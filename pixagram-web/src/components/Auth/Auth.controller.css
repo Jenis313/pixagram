@@ -63,3 +63,7 @@
     padding: 2em 3em;
     font-size: 1.2em;
 }
+.register-form-error{
+    color: rgb(225, 30, 30);
+    font-size: .87em;
+}

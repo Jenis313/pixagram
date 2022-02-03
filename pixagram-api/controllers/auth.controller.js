@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const config = require('./../config/index.config');
 const MAP_USER_REQ = require('./../helpers/map_user_req');
 const bcrypt = require('bcryptjs');
+const {body, validationResult} = require('express-validator');
 var salt = bcrypt.genSaltSync(10);
 function generateToken(data){
     return jwt.sign({
@@ -63,8 +64,53 @@ router.route('/login')
 })
 
 router.route('/register')
-.post((req, res, next) => {
-    //TODO: validate req.body with express validator
+.post(
+    // Express validator
+    body('fullName', "Name cannot be empty")
+    .notEmpty(),
+
+    body('email', "Empty or invalid email")
+    .isEmail(),
+    body('email').custom(value => {
+        return UserModel.findOne({
+            email: value
+        })
+        .then((user) => {
+            if(user){
+                return Promise.reject('Email already in use');
+            }
+        })
+    }), 
+    body('username', "Username cannot be empty")
+    .notEmpty(),
+    body('username').custom(value => {
+        return UserModel.findOne({
+            username: value
+        })
+        .then((user) => {
+            if(user){
+                return Promise.reject('Username already in use');
+            }
+        })
+    }),
+
+    body('password', "Password cannot be empty")
+    .notEmpty(),
+    body('password', "Password must be longer than 6 characters and contain a letter, a number and a special character")
+    .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, "i"),
+
+    
+    (req, res, next) => {
+    const result = validationResult(req); //It stores all the errors
+    if(!result.isEmpty()){
+        console.log('errors array --> ', result.errors);
+        res.status(400).json({
+            err: result.errors
+        })
+        return
+    }
+
+
     console.log('Register body --> ', req.body);
     const newUser = new UserModel({});
     // Map user
