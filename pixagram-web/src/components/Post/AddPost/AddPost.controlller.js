@@ -87,7 +87,7 @@ export default class AddPost extends Component {
                                 </div>
                                 <div className="input-container-post">
                                     <label htmlFor="post-description" ></label>
-                                    <textarea onChange={this.handleChange} name="description" id="post-description" cols="30" rows="10" placeholder="Post description..." required></textarea>
+                                    <textarea onChange={this.handleChange} name="description" id="post-description" cols="30" rows="10" placeholder="Post description..."></textarea>
                                 </div>
                                 <div className="input-container-post upload-image">
                                     {previewImage}

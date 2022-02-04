@@ -19,7 +19,7 @@ router.route('/')
     .exec()
     .then((data) => {
         // console.log(data)
-
+        // https://www.youtube.com/watch?v=ZX3qt0UWifc&t=761s
         // Paginage the result
         // data is an array and we are paginating that array
         const page = parseInt(req.query.page) || 1;
@@ -168,6 +168,21 @@ router.route('/:id/like')
 router.route('/search')
 .get((req, res, next) => {
     // https://stackoverflow.com/questions/43729199/how-i-can-use-like-operator-on-mongoose
+    let q = req.query.q ? req.query.q : '';
+    console.log(q)
+    PostModel.find({
+        // https://stackoverflow.com/questions/33627238/mongoose-find-with-multiple-conditions
+        $or:[
+            {title : { $regex: '.*' + q + '.*' }},
+            {description : { $regex: '.*' + q + '.*' }}
+        ]
+    })
+    .exec()
+    .then((data) => res.json(data))
+    .catch(err => {
+        console.log(err);
+        next(err);
+    })
 })
 
 router.route('/:id')
