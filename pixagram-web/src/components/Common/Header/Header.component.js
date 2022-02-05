@@ -24,7 +24,13 @@ class Header extends Component {
         })
     }
     handleSubmit(e, history, location){
-        history.push(location)
+        // when you use this.history.push(something), it will redirect to {pathname} and you can also pass additional data to the component of the path. To access data from that {pathname}(component) you can use this.props.history.... in other words if you do history.push(..) it will pass data as props and you can access those props in the same way you would access in a normal component. eg. I am passing pathname and search properties from this history.push and I can access those data form SearchPost Component using this.props.history. And also SearchComponent will be rerendered everytime I pass something new to history.push because it is a props for SearchComponent and as I change the props(data inside history.push), SearchComponent also gets re-rendered.
+        // https://stackoverflow.com/questions/44121069/how-to-pass-params-with-history-push-link-redirect-in-react-router-v4, https://stackoverflow.com/questions/44121069/how-to-pass-params-with-history-push-link-redirect-in-react-router-v4/45263164#45263164 
+        history.push({
+            pathname: location,
+            search: this.state.query,
+            state: { query: this.state.query }
+          })
         e.preventDefault();
        
     }
@@ -63,7 +69,7 @@ class Header extends Component {
                     <div className="header--logo"><NavLink to = "/home"><img src={Logo} alt="" className="logo-img" /></NavLink></div>
                     <div className="header--search-bar">
                         <form onSubmit={(e) => {
-                                this.handleSubmit(e, this.props.history, `/post/search?q=${this.state.query}`)
+                                this.handleSubmit(e, this.props.history, `/post/search`)
                         } } action="#">
                             <div className="search-cont">
                                 <label htmlFor="post-search"></label>

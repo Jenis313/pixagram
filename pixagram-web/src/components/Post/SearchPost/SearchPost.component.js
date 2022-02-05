@@ -12,19 +12,16 @@ export default class SearchPost extends Component {
         this.state = {
             isLoading : false,
              posts : [],
+             query : ''
         }
     }
+    // In the first history.push this will run
     componentDidMount(){
-
-        // GET QUERY string REACT
-        const params = new URLSearchParams(this.props.location.search);
-        const query = params.get('q');
-        // https://stackoverflow.com/questions/52652661/how-to-get-query-string-using-react
-        // console.log('query---> ', query)
         this.setState({
-            isLoading : true
+            isLoading : true,
+            query : this.props.history.location.search
         })
-        httpClient.GET(`post/search?q=${query}`, false)
+        httpClient.GET(`post/search?q=${this.props.history.location.search}`, false)
         .then((results) => {
             console.log(' data is ----> ',results.data)
             this.setState({
@@ -39,7 +36,33 @@ export default class SearchPost extends Component {
                 isLoading : false
             })
         })
+        console.log('Did update ---> props', this.props)
+    }
 
+    // after first history.push the props gets updated and didUpdate will run() we don't want it to run if state of this component changes but we want it to run if props(created by history.push) changes so we are using a condition inside.
+    componentDidUpdate(){
+      if(this.state.query !== this.props.history.location.search){
+            this.setState({
+                isLoading : true,
+                query : this.props.history.location.search
+            })
+            httpClient.GET(`post/search?q=${this.props.history.location.search}`, false)
+            .then((results) => {
+                console.log(' data is ----> ',results.data)
+                this.setState({
+                    posts : results.data
+                })
+            })
+            .catch((err) => {
+                console.log('error is ---> ', err);
+            })
+            .finally(() => {
+                this.setState({
+                    isLoading : false
+                })
+            })
+            console.log('Did update ---> props', this.props)
+        }
     }
 //  render(){
 //      return <div></div>
@@ -65,7 +88,7 @@ export default class SearchPost extends Component {
                 <div className="container">
                     {/* <!-- left cont --> */}
                     <section className="main-left">
-                        
+                        {this.state.posts.length>0 ? <h2>Search Results: </h2> : <></>}
                         <div className="posts-container">
                             {/*load post card */}
                             {posts}
