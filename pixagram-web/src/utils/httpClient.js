@@ -47,7 +47,6 @@ const UPLOAD = (method, url, data = {}, files = []) => {
         // we are sending value as form data
         const xhr = new XMLHttpRequest();
         const formData = new FormData();
-
         // append files in form data
         // This will work for both single and multiple files(it's like filling form)
         files.forEach(item => {

@@ -8,17 +8,18 @@ import Home from './Home/Homepage/Home.controller';
 import AddPost from './Post/AddPost/AddPost.controlller';
 import SearchPost from './Post/SearchPost/SearchPost.component';
 import Post from './Post/ViewPost/PostModal/Post.controller';
+import EditProfile from './Profile/EditProfile/EditProfile.component';
 import Profile from './Profile/Profile.controller';
 export default function AppRouting(props) {
     return (
         <BrowserRouter>
-            
             <Header />
             <Switch>
                 <Route exact path= '/' component={Home}></Route>
                 <Route exact path= '/home' component={Home}></Route>
                 <Route exact path= '/login' component={Login}></Route>
                 <Route exact path= '/register' component={Register}></Route>
+                <Route exact path= '/users/edit/:userId' component={EditProfile}></Route>
                 <Route exact path= '/users/:userId' component={Profile}></Route>
                 <Route exact path= '/post/search' component={SearchPost}></Route>
                 <Route exact path= '/post/new' component={AddPost}></Route>

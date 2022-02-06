@@ -96,7 +96,7 @@ export default class Profile extends Component {
                             {
                                 isLoggedIn 
                                 ?   <div className="edit-profile">
-                                        <NavLink to={'#'}><i className="fas fa-cog"></i></NavLink>
+                                        <NavLink to={`/users/edit/${this.state.user._id}`}><i className="fas fa-cog"></i></NavLink>
                                     </div> 
                                 : <></>
                             }

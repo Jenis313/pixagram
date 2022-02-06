@@ -63,9 +63,6 @@ header li a{
     border-radius: 20px;
     color: var(--white);
 }
-.profile-link img{
- 
-}
 .logout-link button{
     display: inline;
     background-color: inherit;

@@ -3,6 +3,8 @@ import './Header.component.css';
 import Logo from './../../../images/pixagram.png'
 import ProfilePic from "../ProfilePic/ProfilePic.controller";
 import { NavLink, withRouter } from "react-router-dom";
+import { httpClient } from '../../../utils/httpClient';
+import { ErrorHandler } from '../../../utils/errorHandler';
 
 function logout(history){
     localStorage.clear();
@@ -13,10 +15,25 @@ class Header extends Component {
     constructor(){
         super()
         this.state = {
-            query : ''
+            query : '',
+            profileImg : ''
         }
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChange = this.handleChange.bind(this)
+    }
+    componentDidMount(){
+        if(localStorage.getItem('token')){
+            httpClient.GET(`/users/${JSON.parse(localStorage.getItem('user'))._id}`)
+            .then((data) => {
+                console.log('logged in user is -> ',data.data.image);
+                this.setState({
+                    profileImg : data.data.image
+                })
+            })
+            .catch((err) => {
+                ErrorHandler(err)
+            })
+        }
     }
     handleChange(e){
         this.setState({
@@ -44,6 +61,7 @@ class Header extends Component {
                                         outline = {true}
                                         size = "35px"
                                         link = {`/users/${JSON.parse(localStorage.getItem('user'))._id}`}
+                                        img = {this.state.profileImg}
                                     />
                                 </li>
                                 <li className="logout-link">
