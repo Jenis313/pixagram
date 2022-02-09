@@ -137,6 +137,56 @@ router.route('/:id')
 
 
 })
+.patch((req,res,next) => {
+
+    if(!req.currentUser){
+        // no valid token
+        next({
+            msg: 'Not logged In',
+            status: 404
+        });
+        return
+    }else{
+        console.log(req.params.id, req.currentUser._id);
+        if(req.params.id !== (req.currentUser._id.toString()) ){
+            // editing someone else's token
+            next({
+                msg: "Sorry you can't perform this task",
+                status : 401 
+            })
+            return
+        }
+
+        UserModel
+        .findOne({
+            _id : req.params.id
+        }, (err, user) => {
+            // query error
+            if(err) {
+                next(err);
+                return
+            }
+            // user doesn't exit
+            if(!user){
+                next({
+                    msg: 'User Not Found',
+                    status: 404
+                })
+                return
+            }
+            let mappedUpdatedUser = MAP_USER_REQ(req.body, user);
+    
+            // save updated req
+            mappedUpdatedUser.save((err, result) => {
+                console.log('yeah done', result)
+                if(err){
+                    return next(err);
+                }
+                res.json(result);
+            })
+        })
+    }
+})
 .delete((req, res, next) => {
     // If req.params.id === currentUser.id allow user to delete otherwise can't delete
 })

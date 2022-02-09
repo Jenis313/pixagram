@@ -54,20 +54,38 @@ export default class EditProfile extends Component {
         }))
     }
     handleSubmit(e){
+        console.log('state->', this.state)
         e.preventDefault();
-        httpClient.UPLOAD('PUT',`/users/${JSON.parse(localStorage.getItem('user'))._id}`, this.state.user, [this.state.newProfileImg/*because UPLOAD accepts array of image/images*/])
-        .then((response) => {
-            this.context.state.setCurrentProfile(JSON.parse(response).image);
-            let currentUser = JSON.parse(localStorage.getItem('user'));
-            currentUser.fullName = JSON.parse(response).fullName;
-            localStorage.setItem('user', JSON.stringify(currentUser))
-            Notify.showSuccess('Profile Updated!')
-            this.props.history.push('/home')
-        })
-        .catch((err) => {
-            // console.log('error is-->', err.response);
-            ErrorHandler(err);
-        })
+        if(!this.state.newProfileImg){
+            httpClient.PATCH(`/users/${JSON.parse(localStorage.getItem('user'))._id}`,this.state.user)
+            .then((response) => {
+                // console.log('response--->', response)
+                let currentUser = JSON.parse(localStorage.getItem('user'));
+                currentUser.fullName = response.data.fullName;
+                localStorage.setItem('user', JSON.stringify(currentUser))
+                Notify.showSuccess('Profile Updated!')
+                this.props.history.push('/home')
+            })
+            .catch((err) => {
+                // console.log('error is-->', err.response);
+                ErrorHandler(err);
+            })
+        }else{
+            httpClient.UPLOAD('PUT',`/users/${JSON.parse(localStorage.getItem('user'))._id}`, this.state.user, [this.state.newProfileImg/*because UPLOAD accepts array of image/images*/] )
+            .then((response) => {
+                this.context.state.setCurrentProfile(JSON.parse(response).image);
+                let currentUser = JSON.parse(localStorage.getItem('user'));
+                currentUser.fullName = JSON.parse(response).fullName;
+                localStorage.setItem('user', JSON.stringify(currentUser))
+                Notify.showSuccess('Profile Updated!')
+                this.props.history.push('/home')
+            })
+            .catch((err) => {
+                // console.log('error is-->', err.response);
+                ErrorHandler(err);
+            })
+        }
+        
     }
  
     render() {
@@ -75,7 +93,6 @@ export default class EditProfile extends Component {
         let profileEditForm;
         // check if loggedIn
         if(localStorage.getItem('token')){
-            if(this.state.newProfileImg){console.log('yesss')}else{console.log('noooo')}
             // Check if users is editing own profile
             if(this.props.match.params.userId == JSON.parse(localStorage.getItem('user'))._id){
                 profileEditForm = 

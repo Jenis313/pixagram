@@ -35,6 +35,12 @@ const PUT = (url, data, isSecured = true, params = {}) => {
         params
     })
 }
+const PATCH = (url, data, isSecured = true, params = {}) => {
+    return http.patch(url, data, {
+        headers : getHeaders(isSecured),
+        params
+    })
+}
 const DELETE = (url, isSecured = false, params) => {
     return http.delete(url, {
         headers : getHeaders(isSecured),
@@ -78,5 +84,6 @@ export const httpClient = {
     POST,
     PUT,
     DELETE,
-    UPLOAD
+    UPLOAD,
+    PATCH
 }
