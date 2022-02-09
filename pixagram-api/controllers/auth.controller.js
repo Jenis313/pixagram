@@ -97,7 +97,7 @@ router.route('/register')
     body('password', "Password cannot be empty")
     .notEmpty(),
     body('password', "Password must be longer than 6 characters and contain a letter, a number and a special character")
-    .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, "i"),
+    .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/, "i"),
 
     
     (req, res, next) => {

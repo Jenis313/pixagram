@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
-import ProfilePic from '../../Common/ProfilePic/ProfilePic.controller';
-import ProfileImg from './../../../images/profile.png'
+import {GlobalContext} from '../../../context/GlobalState'; //import globalContext
+import './EditProfile.component.css' //import css
 import { httpClient } from '../../../utils/httpClient';
-import { NavLink } from 'react-router-dom';
-import './EditProfile.component.css'
 import { ErrorHandler } from '../../../utils/errorHandler';
 import { Notify } from '../../../utils/notify';
 const REACT_IMG_URL = process.env.REACT_APP_IMG_URL;
 
+
 export default class EditProfile extends Component {
+    // You should set this when using `this.context`.
+    static contextType = GlobalContext;
+
     constructor(){
         super();
         this.state = {
@@ -53,8 +55,12 @@ export default class EditProfile extends Component {
     }
     handleSubmit(e){
         e.preventDefault();
-        httpClient.UPLOAD('PUT',`/users/${JSON.parse(localStorage.getItem('user'))._id}`, this.state.user, [this.state.newProfileImg])
+        httpClient.UPLOAD('PUT',`/users/${JSON.parse(localStorage.getItem('user'))._id}`, this.state.user, [this.state.newProfileImg/*because UPLOAD accepts array of image/images*/])
         .then((response) => {
+            this.context.state.setCurrentProfile(JSON.parse(response).image);
+            let currentUser = JSON.parse(localStorage.getItem('user'));
+            currentUser.fullName = JSON.parse(response).fullName;
+            localStorage.setItem('user', JSON.stringify(currentUser))
             Notify.showSuccess('Profile Updated!')
             this.props.history.push('/home')
         })
