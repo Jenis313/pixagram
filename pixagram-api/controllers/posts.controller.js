@@ -12,7 +12,7 @@ router.route('/')
     .sort({
         _id: -1
     })
-    .populate('author', {username:1, _id: 1 }) //gives username and id
+    .populate('author', {username:1,  image : 1, _id: 1 }) //gives username and id
     .populate('comments.user', {_id: 1}) //gives id only
     .populate('likes.user', {_id: 1})
     // https://stackoverflow.com/questions/14594511/mongoose-populate-within-an-object?rq=1
@@ -23,7 +23,7 @@ router.route('/')
         // Paginage the result
         // data is an array and we are paginating that array
         const page = parseInt(req.query.page) || 1;
-        const limit = 10; //can be changed form query if needed
+        const limit = 5; //can be changed form query if needed
         const startIndex = (page-1) * limit;
         const endIndex = page * limit;
         const results = {}
@@ -191,8 +191,8 @@ router.route('/:id')
     .findOne({
         _id : req.params.id
     })
-    .populate('author', {username:1, _id: 1 }) //gives username and id
-    .populate('comments.user', {fullName : 1, _id: 1}) //gives id only
+    .populate('author', {username:1, image : 1, _id: 1 }) //gives username and id
+    .populate('comments.user', {fullName : 1, image : 1, _id: 1}) //gives id only
     .populate('likes.user', {fullName : 1, _id: 1})
     // https://stackoverflow.com/questions/14594511/mongoose-populate-within-an-object?rq=1
     .exec()

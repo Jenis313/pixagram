@@ -33,7 +33,7 @@ router.route('/:id/posts')
     .sort({
         _id:-1 //IT reverses the data flow
     })
-    .populate('author', {username : 1, _id: 1})
+    .populate('author', {username : 1, image: 1, _id: 1})
     // .limit(1) // it limits the result
     // .skip(2) //For skipping
     .exec((err, result) => {
