@@ -34,8 +34,8 @@ class Header extends Component {
         if(localStorage.getItem('token')){
             httpClient.GET(`/users/${JSON.parse(localStorage.getItem('user'))._id}`)
             .then((data) => {
-                console.log('logged in user is -> ',data.data.image);
-                console.log('context',this.context.state)
+                // console.log('logged in user is -> ',data.data.image);
+                // console.log('context',this.context.state)
                 // Set image in global context
                 this.context.state.setCurrentProfile(data.data.image);
                 // We would not need to use this.context to set image in GLobalContext if it was inside Provider but in here we are using outside Provider(componentDidMount so this.context is being used)

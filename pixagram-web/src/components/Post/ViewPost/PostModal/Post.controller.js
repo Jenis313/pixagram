@@ -41,7 +41,7 @@ export default class Post extends Component {
         console.log(this.postId)
         httpClient.GET(`/post/${this.postId}`, false)
         .then((post) => {
-            console.log('Post component get request data ----> ',post.data)
+            // console.log('Post component get request data ----> ',post.data)
             this.setState({
                 post : {...post.data}
             })
@@ -62,7 +62,7 @@ export default class Post extends Component {
         console.log('state', this.state)
         httpClient.POST(`/post/${this.state.post._id}/comment`, this.state.commentData, true)
         .then((response) => {
-            console.log('response from server comment --> ', response)
+            // console.log('response from server comment --> ', response)
             this.setState({
                 post : response.data,
                 commentData : {
@@ -76,7 +76,7 @@ export default class Post extends Component {
             ErrorHandler(err)
         })
         .finally(() => {
-           console.log('stete', this.state)
+        //    console.log('stete', this.state)
         })
     }
     handleCommentChange(event){

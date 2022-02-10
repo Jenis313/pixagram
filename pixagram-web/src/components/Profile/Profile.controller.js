@@ -7,6 +7,7 @@ import PostCard from '../Home/Post_card/Post_card.controller';
 import './Profile.controller.css';
 import { ErrorHandler } from '../../utils/errorHandler';
 import { NavLink } from 'react-router-dom';
+const REACT_IMG_URL = process.env.REACT_APP_IMG_URL;
 
 
 export default class Profile extends Component {
@@ -55,14 +56,15 @@ export default class Profile extends Component {
             })
             console.log('state---> ', this.state);
         })
-
-
-
-        
-
+    }
+    componentDidUpdate(){
+        //if user is watching someone else's profile and he clicks his profile through Navbar then he should get his own data, which can be done from this place.
     }
     render() {
-        const isLoggedIn = localStorage.getItem('token') ? true : false
+        const loggedInUserId = localStorage.getItem('token') ? JSON.parse(localStorage.getItem('user'))._id : false
+        const userProfileId = this.state.user._id 
+
+        console.log('iddd',userProfileId, loggedInUserId)
         let posts; 
             if(this.state.isLoading){
                 posts = <Loader />
@@ -91,10 +93,10 @@ export default class Profile extends Component {
                         <div className="profile-container">
                             <div className="top-color"></div>
                             <div className="current-profile-pic">
-                                <img src={ProfileImg} width="100px" alt="" />
+                                <img src={`${REACT_IMG_URL}/${this.state.user.image}`} width="100px" alt="" />
                             </div>
                             {
-                                isLoggedIn 
+                                loggedInUserId ===  userProfileId
                                 ?   <div className="edit-profile">
                                         <NavLink to={`/users/edit/${this.state.user._id}`}><i className="fas fa-cog"></i></NavLink>
                                     </div> 
@@ -106,7 +108,7 @@ export default class Profile extends Component {
                                 <p className="username">@<span>{this.state.user.username}</span></p>
                             </div>
                             {
-                                isLoggedIn 
+                                 loggedInUserId ===  userProfileId
                                 ?   <div className="new-post-profile">
                                         <NavLink to={'/post/new'}>Add a new post</NavLink>
                                     </div> 

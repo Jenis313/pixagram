@@ -175,7 +175,8 @@ class PostCard extends Component{
                 <div className="post-user">
                     <ProfilePic
                         outline = {true}
-                        link = '#'
+                        link = {`/users/${postData.author._id}`}
+                        img = {postData.author.image}
                     />
                     <NavLink onClick = {
                         (e) => {

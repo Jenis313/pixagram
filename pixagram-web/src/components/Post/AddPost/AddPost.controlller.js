@@ -32,7 +32,7 @@ export default class AddPost extends Component {
     }
     handleChange(e){
         const {name, value, type, files} = e.target;
-        console.log(name, value, files)
+        // console.log(name, value, files)
         if(type === 'file'){
             this.setState({
                 image : [files[0]]
@@ -64,7 +64,7 @@ export default class AddPost extends Component {
         })
     }
     render() {
-        console.log('this state ----> ', this.state)
+        // console.log('this state ----> ', this.state)
         let previewImage;
         if(this.state.image.length){
             previewImage =  <div className='previewImageAddPost'>

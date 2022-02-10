@@ -6,12 +6,16 @@ import ProfilePic from '../../Common/ProfilePic/ProfilePic.controller';
 import Loader from '../../Common/Loader/Loader.component';
 import { httpClient } from '../../../utils/httpClient';
 import { NavLink } from 'react-router-dom';
+import InfiniteScroll from 'react-infinite-scroll-component';
+
+
 export default class Home extends Component {
     constructor(){
         super();
         this.state = {
             isLoading : false,
              posts : [],
+             page : 1
         }
     }
 
@@ -35,22 +39,38 @@ export default class Home extends Component {
                 isLoading : false
             })
         })
-
     }
- 
+    fetchData = () => {
+        const { page } = this.state;
+        this.setState({ page: this.state.page + 1 });
+        httpClient
+          .GET(`/post?page=${this.state.page}`)
+          .then(res =>
+            this.setState({
+                posts : this.state.posts.concat(res.data.posts)
+            })
+          );
+      };
     render() {
         let posts; 
          if(this.state.isLoading){
             posts = <Loader />
          }else{
              
-           posts =  <>
+           posts =  
+            <InfiniteScroll
+                dataLength={this.state.posts.length}
+                next={this.fetchData}
+                hasMore={true}
+                loader={<h4>Loading...</h4>}
+            >
+                {/* can get rid of this InfiniteScroll component and use <> fragment instead if you don't want to use scroll fetch feature*/}
                 {
                     this.state.posts.map((post, index) => {
                         return <PostCard data = {post} key = {index} />
                     })
                 }
-            </>
+            </InfiniteScroll>
          }  
         return (
             <div className='home-main'>
