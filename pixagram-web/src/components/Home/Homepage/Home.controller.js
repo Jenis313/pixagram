@@ -80,7 +80,7 @@ export default class Home extends Component {
                         <div className="create-new-location">
                             <ProfilePic 
                                 outline = {false}
-                                link = '/users'
+                                link = {localStorage.getItem('token') ? `/users/${JSON.parse(localStorage.getItem('user'))._id}` : ''}
                             />
                             <div className="create-new-location-btn">
                                 <NavLink exact to={"/post/new"}><i className="far fa-plus-square"></i> Create a new post </NavLink>

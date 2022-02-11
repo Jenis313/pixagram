@@ -14,22 +14,7 @@ export default class Post extends Component {
     constructor(){
         super()
         this.state = {
-            post : {
-                approved: '',
-                author: {},
-                comments: [],
-                commentsCount: '',
-                createdAt: '',
-                description: '',
-                image: '',
-                likes: [],
-                likesCount: '',
-                tags: [],
-                title: '',
-                updatedAt: '',
-                __v: '',
-                _id : '',
-            },
+            post : {},
             commentData: {},
             isLoading : true //it is necessary becausse only after data request is complete it will be set to false and once it is false, data(props) will be passed to PostCard otherwise empty state will go to PostCard and cause errors (https://stackoverflow.com/questions/28785106/reactjs-why-is-passing-the-component-initial-state-a-prop-an-anti-pattern/28785276#28785276 & https://stackoverflow.com/questions/41233458/react-child-component-not-updating-after-parent-state-change)
         }
@@ -38,22 +23,22 @@ export default class Post extends Component {
     componentDidMount(){
        
         this.postId = this.props.match.params['postId']; //because the route of this component is post/:postId (eg <Route to "post/:postId">) and also this component lives inside BrowserRouter so that we can access it's parameter with props.match.params['parameter name']
-        console.log(this.postId)
         httpClient.GET(`/post/${this.postId}`, false)
         .then((post) => {
             // console.log('Post component get request data ----> ',post.data)
             this.setState({
                 post : {...post.data}
             })
+           
         })
         .catch((err) => {
             console.log('error is ---> ', err);
         })
         .finally(() => {
+            // console.log('state post controller--->', this.state)
             this.setState({
                 isLoading : false
             })
-            // console.log('state post controller--->', this.state)
         })
     }
     handleCommentSubmit(event){
@@ -126,27 +111,43 @@ export default class Post extends Component {
                 <div className="container">
                     {/* <!-- left cont --> */}
                     <section className="main-left">
-                        {/* <!-- <h1><span>Jenis</span>'s posts</h1> --> */}
-                        <div className="posts-container">
-                            <div className="post">
-                                {/* Load PostCard */}
-                                {this.state.isLoading ? <></> : <PostCard data = {this.state.post} fromPost = {true} /> }
+                        {/* 
 
-                                <div className="write-comment">
-                                    {commentContent}
-                                </div>
-                                <div className="comments-container">
-                                    {
-                                        this.state.post.comments.reverse().map((comment, index) => {
-                                                return <Comment 
-                                                    comment = {comment}
-                                                    key = {index}
-                                                />
-                                        })
-                                    }
-                                </div>
+                        -First check if post id in the url is valid, if that is valid it will fill the post property of state after request if it is not valid the post property remains empty. So if the post property is empty that means something wrong with the post's id in the url or internet request problem, and also combine this.state.isLoading ===false because initial value of post is empty which doesn't make sense if we check its value in the very beginning. So check only after the request is complete 
+                        
+                        */}
+                        {
+                        this.state.isLoading===false && Object.keys(this.state.post).length === 0 //this means req is done and post is empty
+                        ?   <div className="posts-container">
+                                <h4>Sorry this post doesn't exit. </h4>
                             </div>
-                        </div>
+                        :   <div className="posts-container">
+                                {/* Check if request is complete or not if request is not complete just show empty Fragment otherwise show .post div */}
+                                {this.state.isLoading 
+                                    ? <></>
+                                    :  <div className="post">
+                                            {/* Load PostCard */}
+                                            <PostCard data = {this.state.post} fromPost = {true} />
+
+                                            <div className="write-comment">
+                                                {commentContent}
+                                            </div>
+                                            <div className="comments-container">
+                                                {
+                                                    this.state.post.comments.reverse().map((comment, index) => {
+                                                            return <Comment 
+                                                                comment = {comment}
+                                                                key = {index}
+                                                            />
+                                                    })
+                                                }
+                                            </div>
+                                        </div> 
+                                    
+                                }
+                            </div>
+                        }
+                        
                     </section>
                      {/* <!-- Main left --> */}
                     {/* <!-- Right Cont --> */}

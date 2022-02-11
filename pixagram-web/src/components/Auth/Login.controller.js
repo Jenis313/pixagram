@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {GlobalContext} from './../../context/GlobalState'; //import globalContext
+
 import './Auth.controller.css';
 import Pixagram from './../../images/pixagram.png';
 import { Link, NavLink } from 'react-router-dom';
@@ -10,6 +12,9 @@ const defaultForm = {
 }
 
 export default class Login extends Component {
+    // You should set this when using `this.context`.
+    static contextType = GlobalContext;
+
     constructor(){
         super()
         this.state = {
@@ -28,7 +33,7 @@ export default class Login extends Component {
     }
     handleChange(e){
         let {name , value} = e.target;
-        console.log(name, value)
+        // console.log(name, value)
         this.setState((prevState) => {
                 return {
                     data : {
@@ -36,10 +41,7 @@ export default class Login extends Component {
                     [name] : value
                 }
             }
-        } /*, () => {
-        //    form validation
-        this.validateForm(name);
-        }*/ )
+        })
     }
     handleSubmit(e){
         e.preventDefault() 
@@ -47,6 +49,7 @@ export default class Login extends Component {
         httpClient.POST(`/auth/login`, this.state.data)
         .then((response) => {
             // console.log('response is -> ', response);
+            this.context.state.setCurrentProfile(response.data.user.image);
             localStorage.setItem('token', response.data.token)
             localStorage.setItem('user', JSON.stringify(response.data.user))
             this.props.history.push('/home')

@@ -28,7 +28,7 @@ export default class Register extends Component {
     }
     handleChange(e){
         let {name , value} = e.target;
-        console.log(name, value)
+        // console.log(name, value)
         this.setState((prevState) => {
                 return {
                     data : {
@@ -74,7 +74,7 @@ export default class Register extends Component {
         })
     }
     render() {
-        console.log('stateeee --> ', this.state);
+        // console.log('stateeee --> ', this.state);
         return (
             <div className="auth-main">
                     <div className="form-container">

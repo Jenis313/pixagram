@@ -27,7 +27,7 @@ export default class Profile extends Component {
         // For user details
         httpClient.GET(`/users/${userId}`, false)
         .then((user) => {
-            console.log('userrrrrrrrr->', user);
+            // console.log('user->', user);
             this.setState({
                 user : {
                     ...user.data
@@ -36,7 +36,7 @@ export default class Profile extends Component {
             // For posts
             httpClient.GET(`/users/${userId}/posts`, false)
             .then((results) => {
-                console.log(' data is ----> ',results.data);
+                // console.log(' data is ----> ',results.data);
                 this.setState({
                     posts : [...results.data]
                 })
@@ -54,7 +54,7 @@ export default class Profile extends Component {
             this.setState({
                 isLoading : false
             })
-            console.log('state---> ', this.state);
+            // console.log('state---> ', this.state);
         })
     }
     componentDidUpdate(){
@@ -64,12 +64,12 @@ export default class Profile extends Component {
         const loggedInUserId = localStorage.getItem('token') ? JSON.parse(localStorage.getItem('user'))._id : false
         const userProfileId = this.state.user._id 
 
-        console.log('iddd',userProfileId, loggedInUserId)
+        // console.log('id',userProfileId, loggedInUserId)
         let posts; 
             if(this.state.isLoading){
                 posts = <Loader />
             }else{
-            console.log(this.state)  
+            // console.log(this.state)  
                 posts =  <>
                     {
                         this.state.posts.map((post, index) => {

@@ -23,7 +23,7 @@ export default class SearchPost extends Component {
         })
         httpClient.GET(`post/search?q=${this.props.history.location.search}`, false)
         .then((results) => {
-            console.log(' data is ----> ',results.data)
+            // console.log(' data is ----> ',results.data)
             this.setState({
                 posts : results.data
             })
@@ -36,7 +36,7 @@ export default class SearchPost extends Component {
                 isLoading : false
             })
         })
-        console.log('Did update ---> props', this.props)
+        // console.log('Did update ---> props', this.props)
     }
 
     // after first history.push the props gets updated and didUpdate will run() we don't want it to run if state of this component changes but we want it to run if props(created by history.push) changes so we are using a condition inside.
@@ -48,7 +48,7 @@ export default class SearchPost extends Component {
             })
             httpClient.GET(`post/search?q=${this.props.history.location.search}`, false)
             .then((results) => {
-                console.log(' data is ----> ',results.data)
+                // console.log(' data is ----> ',results.data)
                 this.setState({
                     posts : results.data
                 })
@@ -61,12 +61,10 @@ export default class SearchPost extends Component {
                     isLoading : false
                 })
             })
-            console.log('Did update ---> props', this.props)
+            // console.log('Did update ---> props', this.props)
         }
     }
-//  render(){
-//      return <div></div>
-//  }
+
     render() {
         let posts; 
          if(this.state.isLoading){

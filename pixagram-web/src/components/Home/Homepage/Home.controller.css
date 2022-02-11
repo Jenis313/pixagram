@@ -37,3 +37,7 @@
     font-size: 1.1em;
     font-weight: 500;
 }
+div.infinite-scroll-component{
+    overflow: hidden !important;
+    /* There will be a scroll bar in the last scroll if we don't do this */
+}
