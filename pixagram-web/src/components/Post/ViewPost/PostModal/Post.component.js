@@ -42,7 +42,7 @@ export default class Post extends Component {
     handleCommentSubmit(event){
 
         event.preventDefault();
-        console.log('state', this.state)
+        // console.log('state', this.state)
         httpClient.POST(`/post/${this.state.post._id}/comment`, this.state.commentData, true)
         .then((response) => {
             // console.log('response from server comment --> ', response)
@@ -64,7 +64,7 @@ export default class Post extends Component {
     }
     handleCommentChange(event){
         event.preventDefault()
-        console.log('eventtt', event.target.name, event.target.value)
+        // console.log('eventtt', event.target.name, event.target.value)
         this.setState((prevState) => ({
             commentData : {
                 message : event.target.value,
