@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
-import Sidebar from '../../Common/Sidebar/Sidebar.component';
 import './SearchPost.component.css'
-import PostCard from '../../Home/Post_card/Post_card.controller';
-import ProfilePic from '../../Common/ProfilePic/ProfilePic.controller';
+import PostCard from '../../Home/Post_card/Post_card.component';
 import Loader from '../../Common/Loader/Loader.component';
 import { httpClient } from '../../../utils/httpClient';
-import { NavLink } from 'react-router-dom';
 import { ErrorHandler } from '../../../utils/errorHandler';
 export default class SearchPost extends Component {
     constructor(){

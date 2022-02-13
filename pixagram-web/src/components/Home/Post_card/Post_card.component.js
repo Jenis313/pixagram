@@ -1,7 +1,7 @@
 // While making a child component try to use as much as props as you can and don't try to create state which comes from props because if the you make state in child component based on props the the component will not rerender even after the change in props 
 import React, { Component } from 'react';
-import './Post_card.controller.css'
-import ProfilePic from '../../Common/ProfilePic/ProfilePic.controller';
+import './Post_card.component.css'
+import ProfilePic from '../../Common/ProfilePic/ProfilePic.component';
 import { NavLink, Redirect, withRouter } from 'react-router-dom';
 import { ErrorHandler } from '../../../utils/errorHandler';
 import { httpClient } from '../../../utils/httpClient';

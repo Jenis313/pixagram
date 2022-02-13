@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {GlobalContext} from './../../context/GlobalState'; //import globalContext
+import {GlobalContext} from '../../context/GlobalState'; //import globalContext
 
-import './Auth.controller.css';
+import './Auth.component.css';
 import Pixagram from './../../images/pixagram.png';
 import { Link, NavLink } from 'react-router-dom';
 import { httpClient } from '../../utils/httpClient';

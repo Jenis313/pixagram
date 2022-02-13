@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import './Post.controller.css'
+import './Post.component.css'
 import Sidebar from '../../../Common/Sidebar/Sidebar.component'
-import Comment from '../PostComment/Comment.controller';
+import Comment from '../PostComment/Comment.component';
 import { httpClient } from '../../../../utils/httpClient';
 import { NavLink } from 'react-router-dom';
-import PostCard from './../../../Home/Post_card/Post_card.controller'
+import PostCard from '../../../Home/Post_card/Post_card.component'
 import { ErrorHandler } from '../../../../utils/errorHandler';
 
 export default class Post extends Component {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './AddPost.controller.css';
+import './AddPost.component.css';
 import Sidebar from '../../Common/Sidebar/Sidebar.component';
 import { NavLink } from 'react-router-dom';
 import { Notify } from '../../../utils/notify';

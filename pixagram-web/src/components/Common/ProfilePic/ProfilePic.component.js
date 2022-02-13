@@ -1,6 +1,6 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom'
-import './ProfilePic.controller.css';
+import './ProfilePic.component.css';
 import CommonProfilePic from './../../../images/profile.png';
 const REACT_IMG_URL = process.env.REACT_APP_IMG_URL;
 

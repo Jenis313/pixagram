@@ -1,6 +1,6 @@
 import React from 'react';
-import ProfilePic from '../../../Common/ProfilePic/ProfilePic.controller';
-import './Comment.controller.css';
+import ProfilePic from '../../../Common/ProfilePic/ProfilePic.component';
+import './Comment.component.css';
 
 export default function Comment(props) {
     let comment = props.comment;

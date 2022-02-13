@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { httpClient } from '../../utils/httpClient';
 import Loader from '../Common/Loader/Loader.component';
-import ProfilePic from '../Common/ProfilePic/ProfilePic.controller';
 import ProfileImg from './../../images/profile.png'
-import PostCard from '../Home/Post_card/Post_card.controller';
-import './Profile.controller.css';
+import PostCard from '../Home/Post_card/Post_card.component';
+import './Profile.component.css';
 import { ErrorHandler } from '../../utils/errorHandler';
 import { NavLink } from 'react-router-dom';
 const REACT_IMG_URL = process.env.REACT_APP_IMG_URL;

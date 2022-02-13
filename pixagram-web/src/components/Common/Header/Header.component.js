@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Header.component.css';
 import Logo from './../../../images/pixagram.png'
-import ProfilePic from "../ProfilePic/ProfilePic.controller";
+import ProfilePic from "../ProfilePic/ProfilePic.component";
 import { NavLink, withRouter } from "react-router-dom";
 import { httpClient } from '../../../utils/httpClient';
 import { ErrorHandler } from '../../../utils/errorHandler';

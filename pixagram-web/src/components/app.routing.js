@@ -1,15 +1,15 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
-import Login from './Auth/Login.controller';
-import Register from './Auth/Register.controller';
-import NotFound from './Common/Error/NotFound/NotFound.controller';
+import Login from './Auth/Login.component';
+import Register from './Auth/Register.component';
+import NotFound from './Common/Error/NotFound/NotFound.component';
 import Header from './Common/Header/Header.component';
-import Home from './Home/Homepage/Home.controller';
-import AddPost from './Post/AddPost/AddPost.controlller';
+import Home from './Home/Homepage/Home.component';
+import AddPost from './Post/AddPost/AddPost.component';
 import SearchPost from './Post/SearchPost/SearchPost.component';
-import Post from './Post/ViewPost/PostModal/Post.controller';
+import Post from './Post/ViewPost/PostModal/Post.component';
 import EditProfile from './Profile/EditProfile/EditProfile.component';
-import Profile from './Profile/Profile.controller';
+import Profile from './Profile/Profile.component';
 
 import {MyProvider} from './../context/GlobalState.js';
 //https://www.youtube.com/watch?v=XLJN4JfniH4

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Sidebar from '../../Common/Sidebar/Sidebar.component';
-import './Home.controller.css'
-import PostCard from '../Post_card/Post_card.controller';
-import ProfilePic from '../../Common/ProfilePic/ProfilePic.controller';
+import './Home.component.css'
+import PostCard from '../Post_card/Post_card.component';
+import ProfilePic from '../../Common/ProfilePic/ProfilePic.component';
 import Loader from '../../Common/Loader/Loader.component';
 import { httpClient } from '../../../utils/httpClient';
 import { NavLink } from 'react-router-dom';

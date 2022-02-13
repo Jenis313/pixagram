@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Auth.controller.css';
+import './Auth.component.css';
 import Pixagram from './../../images/pixagram.png';
 import { httpClient } from '../../utils/httpClient';
 import { NavLink } from 'react-router-dom';

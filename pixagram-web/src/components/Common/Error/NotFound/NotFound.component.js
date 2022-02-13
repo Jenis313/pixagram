@@ -1,5 +1,5 @@
 import React from 'react';
-import './NotFound.controller.css'
+import './NotFound.component.css'
 import NotFoundImage from './../../../../images/notFound.png';
 export default function NotFound() {
   return <div>
