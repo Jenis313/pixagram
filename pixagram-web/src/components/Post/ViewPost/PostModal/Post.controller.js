@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import './Post.controller.css'
-import ProfilePic from '../../../Common/ProfilePic/ProfilePic.controller'
 import Sidebar from '../../../Common/Sidebar/Sidebar.component'
-import TestImg from './../../../../images/testimg1.jpg'
 import Comment from '../PostComment/Comment.controller';
 import { httpClient } from '../../../../utils/httpClient';
 import { NavLink } from 'react-router-dom';
 import PostCard from './../../../Home/Post_card/Post_card.controller'
 import { ErrorHandler } from '../../../../utils/errorHandler';
-const REACT_IMG_URL = process.env.REACT_APP_IMG_URL;
 
 export default class Post extends Component {
     constructor(){
@@ -33,6 +30,7 @@ export default class Post extends Component {
         })
         .catch((err) => {
             console.log('error is ---> ', err);
+            ErrorHandler(err)
         })
         .finally(() => {
             // console.log('state post controller--->', this.state)

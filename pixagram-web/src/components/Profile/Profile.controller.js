@@ -83,7 +83,12 @@ export default class Profile extends Component {
                 <div className="container">
                     {/* <!-- left cont --> */}
                     <section className="main-left">
-                        <h1><span>{this.state.user.fullName}</span>'s posts</h1>
+                        {/* if not valid user id request */}
+                        {
+                            this.state.isLoading===false && Object.keys(this.state.user).length === 0
+                            ? <h3>User not found</h3>
+                            : <h1><span>{this.state.user.fullName}</span>'s posts</h1>
+                        }
                         <div className="posts-container">
                             {posts}
                         </div>
@@ -93,7 +98,7 @@ export default class Profile extends Component {
                         <div className="profile-container">
                             <div className="top-color"></div>
                             <div className="current-profile-pic">
-                                <img src={`${REACT_IMG_URL}/${this.state.user.image}`} width="100px" alt="" />
+                                <img src={this.state.user.image ? `${REACT_IMG_URL}/${this.state.user.image}` : ProfileImg} width="100px" alt="" />
                             </div>
                             {
                                 loggedInUserId ===  userProfileId
@@ -121,49 +126,3 @@ export default class Profile extends Component {
         )
     }
 }
-
-
-// export default function Profile() {
-//     return (
-//         <div className='profile-main'>
-//             <div className="container">
-//                 {/* <!-- left cont --> */}
-//                 <section className="main-left">
-//                     {/* <h1>Your posts</h1> */}
-//                     <h1><span>Jenis</span>'s posts</h1>
-//                     <div className="posts-container">
-//                         <PostCard />
-//                     </div>
-//                 </section> 
-//                 {/* <!-- Right Cont --> */}
-//                 <section className="main-right">
-//                     <div className="profile-container">
-//                         <div className="top-color"></div>
-//                         <div className="current-profile-pic">
-//                             {/* <img src="./../images/profile.png" width="100px" alt=""> */}
-//                             <ProfilePic 
-//                                 outline = {true}
-//                                 size = {"80px"}
-//                             />
-//                         </div>
-//                         {/* <%if(currentUser.username == result.username){%> */}
-//                             <div className="edit-profile">
-//                                 <a href="#"><i className="fas fa-cog"></i></a>
-//                             </div>
-//                         {/* <%}%> */}
-//                         <div className="profile-info">
-//                             <p className="full-name">Jenis Rai</p>
-//                             <p className="username">@<span>jenispanda</span></p>
-//                         </div>
-//                         {/* <%if(currentUser.username == result.username){%> */}
-//                         <div className="new-post-profile">
-//                             <a href="/location/new">Add a new post</a>
-//                         </div>
-//                         {/* <%}%> */}
-
-//                     </div>
-//                 </section>
-//             </div>
-//         </div>
-//     )
-// }

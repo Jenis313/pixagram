@@ -1,7 +1,6 @@
 import React from 'react';
 import ProfilePic from '../../../Common/ProfilePic/ProfilePic.controller';
 import './Comment.controller.css';
-const REACT_IMG_URL = process.env.REACT_APP_IMG_URL;
 
 export default function Comment(props) {
     let comment = props.comment;

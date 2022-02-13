@@ -7,6 +7,7 @@ import Loader from '../../Common/Loader/Loader.component';
 import { httpClient } from '../../../utils/httpClient';
 import { NavLink } from 'react-router-dom';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { ErrorHandler } from '../../../utils/errorHandler';
 
 
 export default class Home extends Component {
@@ -33,6 +34,7 @@ export default class Home extends Component {
         })
         .catch((err) => {
             console.log('error is ---> ', err);
+            ErrorHandler(err);
         })
         .finally(() => {
             this.setState({
