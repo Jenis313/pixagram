@@ -87,3 +87,28 @@
     color: #777;
     margin: .3em 0 .6em;
 }
+
+
+
+/* Media queries */
+@media screen and (max-width: 576px) {
+    .comments-main>.container{
+        display: block;
+        width: 96%;
+        padding: 1em 1em;
+    }
+    .comments-main .interact{
+        padding: 1em 1.5em;
+    }
+}
+@media screen and (max-width: 390px) {
+ 
+    .comments-main .interact{
+        padding: 1em .8em;
+    }
+}
+@media screen and (max-width: 280px) {
+    .comments-main .interact{
+        padding: 1em .3em;
+    }
+}

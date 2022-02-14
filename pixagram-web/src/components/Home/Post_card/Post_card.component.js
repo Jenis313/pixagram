@@ -177,6 +177,7 @@ class PostCard extends Component{
                         outline = {true}
                         link = {`/users/${postData.author._id}`}
                         img = {postData.author.image}
+                        size = {window.innerWidth < 557 ? '30px' : '50px' }
                     />
                     <NavLink onClick = {
                         (e) => {

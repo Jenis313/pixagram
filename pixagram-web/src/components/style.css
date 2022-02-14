@@ -42,3 +42,58 @@ body{
     line-height: 18px;
     background-color: var(--main-bg);
 }
+@media screen and (min-width: 2400px) {
+    .container{
+        width: 40%;
+    } 
+}
+@media screen and (min-width: 1900px) {
+    .container{
+        width: 50%;
+    } 
+}
+@media screen and (min-width: 1600px) {
+    .container{
+        width: 55%;
+    } 
+}
+@media screen and (max-width: 1200px) {
+    .container{
+        width: 70%;
+    } 
+}
+@media screen and (max-width: 992px) {
+    .container{
+        width: 85%;
+    } 
+}
+@media screen and (max-width: 768px) {
+    .container{
+        width: 80%;
+    }
+    .main-right{
+        display: none;
+    }
+
+    /* For profile Component */
+    .profile-main>.container{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .profile-main>.container .main-right{
+        display: block;
+        margin-left: 0;
+        margin-bottom: 3em;
+    }
+}
+@media screen and (max-width: 620px) {
+    .container{
+        width: 90%;
+    }
+}
+@media screen and (max-width: 576px) {
+    body{
+        font-size: 13px;
+        line-height: 16px;
+    }
+}

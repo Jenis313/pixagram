@@ -56,3 +56,20 @@
     color: var(--green);
     pointer-events: none;
 }
+
+@media screen and (max-width: 768px) {
+    .interact{
+        padding: 1em 3em;
+    }
+    
+}
+@media screen and (max-width: 576px) {
+    .interact{
+        padding: 1em 1.5em;
+    }
+}
+@media screen and (max-width: 390px) {
+    .interact{
+        padding: 1em .8em;
+    }
+}

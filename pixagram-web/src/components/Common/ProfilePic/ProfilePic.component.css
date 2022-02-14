@@ -15,3 +15,16 @@
     border-radius: 50%;
     padding: .5em;
 }
+@media screen and (max-width: 576px) {
+    .interact{
+        padding: 1em 1.5em;
+    }
+    .profile-pic-container .profilePic-img-with-outline{
+        width: 35px !important;
+        height: 35px !important;
+    }
+    .profile-pic-container .profilePic-img-without-outline{
+        width: 40px !important;
+        height: 40px !important;
+    }
+}

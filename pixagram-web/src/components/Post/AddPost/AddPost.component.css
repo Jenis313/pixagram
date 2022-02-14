@@ -95,7 +95,12 @@
     text-align: center;
     padding: 5em 0;
 }
-.no-auth-location-image i{
+.no-auth-post-image i{
     font-size: 22em;
     color: var(--border)
+}
+@media screen and (max-width: 576px) {
+    .no-auth-post-image i{
+        font-size: 12em;
+    }
 }

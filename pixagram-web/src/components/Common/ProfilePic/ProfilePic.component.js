@@ -6,7 +6,8 @@ const REACT_IMG_URL = process.env.REACT_APP_IMG_URL;
 
 export default function ProfilePic(props) {
     // this takes 
-    const size = props.size ? props.size : "50px";
+    let size = props.size ? props.size : "50px";
+    
     const link = props.link ? props.link : '#';
     const img = props.img ? `${REACT_IMG_URL}/${props.img}` : CommonProfilePic;
     const event = props.e ? props.e : false

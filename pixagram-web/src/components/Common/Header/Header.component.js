@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Header.component.css';
 import Logo from './../../../images/pixagram.png'
+import mobileLogo from './../../../images/pixagram-mobile.png'
 import ProfilePic from "../ProfilePic/ProfilePic.component";
 import { NavLink, withRouter } from "react-router-dom";
 import { httpClient } from '../../../utils/httpClient';
@@ -45,6 +46,20 @@ class Header extends Component {
             })
         }
     }
+    // Mobile hamburger click
+    handleHamburgerClick(){
+        const headerContent = document.querySelectorAll('.headerContent');
+        headerContent.forEach(element => {
+            element.classList.add('headerContent-mobile')
+        });
+    }
+    // Mobile menu back click
+    handleMobileBackKey(){
+        const headerContent = document.querySelectorAll('.headerContent');
+        headerContent.forEach(element => {
+            element.classList.remove('headerContent-mobile')
+        });
+    }
     // Search Operation
     handleChange(e){
         this.setState({
@@ -64,10 +79,20 @@ class Header extends Component {
        
     }
     render() {
+        // When user clicks a link that lives inside menubar in mobile device it should remove the headerContent-mobile class
+        const onclickhidemenu = document.querySelectorAll('.onclickhidemenu');
+        onclickhidemenu.forEach((el) => {
+            el.addEventListener('click', () => {
+                const headerContent = document.querySelectorAll('.headerContent');
+                headerContent.forEach(element => {
+                    element.classList.remove('headerContent-mobile')
+                });
+            })
+        })
 
         let headerContent;
         if(localStorage.getItem('token')){
-            headerContent = <ul>
+            headerContent = <ul className='headerContent '>
                                 <li className="profile-link">
                                     <ProfilePic
                                         outline = {true}
@@ -75,28 +100,39 @@ class Header extends Component {
                                         link = {`/users/${JSON.parse(localStorage.getItem('user'))._id}`}
                                         img = {this.context.state.currentProfilePic}
                                     />
+                                    <span className="mobile-profile-replace only-mobile onclickhidemenu">
+                                        <NavLink to = {`/users/${JSON.parse(localStorage.getItem('user'))._id}`}>Profile</NavLink>
+                                    </span>
                                 </li>
                                 <li className="logout-link">
                                     <button onClick={() => {
                                         logout(this.props.history)
-                                    }} href="/logout"><i className="fas fa-sign-out-alt"></i></button>
+                                    }}><i className="fas fa-sign-out-alt"></i></button>
+                                    <span className='mobile-logout only-mobile onclickhidemenu' onClick={() => {
+                                        logout(this.props.history)
+                                    }}>
+                                        Logout
+                                    </span>
                                 </li> 
+                                <i onClick = {this.handleMobileBackKey} className="fas fa-times hide-menu"></i>
                             </ul>
         }else{
-            headerContent = <ul>
-                                <li className="login-link">
+            headerContent = <ul className='headerContent '>
+                                <li className="login-link onclickhidemenu">
                                     <NavLink to = "/login">Login</NavLink>
                                     {/* under the hood Navlink uses a tag so we are giving style to .login-link>a */}
                                 </li>
-                                <li className="register-link">
+                                <li className="register-link onclickhidemenu">
                                     <NavLink to = "/register">Register</NavLink>
                                 </li>
+                                <i onClick = {this.handleMobileBackKey} className="fas fa-times hide-menu"></i>
                             </ul>
         }
         return (
             <header>
                 <div className="container">
                     <div className="header--logo"><NavLink to = "/home"><img src={Logo} alt="" className="logo-img" /></NavLink></div>
+                    <div className="header--logo--mobile"><NavLink to = "/home"><img src={mobileLogo} alt="" className="logo-img" /></NavLink></div>
                     <div className="header--search-bar">
                         <form onSubmit={(e) => {
                                 this.handleSubmit(e, this.props.history, `/post/search`)
@@ -114,6 +150,9 @@ class Header extends Component {
                     <nav>
                         {headerContent}
                     </nav>
+                    <div className="hamburger" onClick = {this.handleHamburgerClick}>
+                        <i className="fas fa-bars"></i>
+                    </div>
                 </div>
             </header>
         )

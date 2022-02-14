@@ -69,7 +69,7 @@ export default class SearchPost extends Component {
          if(this.state.isLoading){
             posts = <Loader />
          }else if(this.state.posts.length<1){
-            posts = <h1>No results found</h1>
+            posts = <h1>No results found: </h1>
          }else{
              
            posts =  <>

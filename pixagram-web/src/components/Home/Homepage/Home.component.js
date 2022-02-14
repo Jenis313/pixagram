@@ -64,7 +64,7 @@ export default class Home extends Component {
                 dataLength={this.state.posts.length}
                 next={this.fetchData}
                 hasMore={true}
-                loader={<h4>Loading...</h4>}
+                loader={<h4 style={{margin : '1em 0'}}>Loading...</h4>}
             >
                 {/* can get rid of this InfiniteScroll component and use <> fragment instead if you don't want to use scroll fetch feature*/}
                 {

@@ -12,6 +12,12 @@ header>.container{
     justify-content: space-between;
     align-items: center;
 }
+.header--logo--mobile{
+    display: none;
+}
+.hide-menu{
+    display: none;
+}
 .logo-img{
     width:135px;
 }
@@ -80,4 +86,114 @@ header li a{
 header + div{
     margin-top: 5em;
     padding-top: .8em;
+}
+.hamburger{
+    display: none;
+}
+.hamburger i{
+    font-size: 1.5em;
+    /* transform: rotate(90deg); */
+}
+.only-mobile{
+    display: none;
+}
+@media screen and (max-width: 768px) {
+    .hamburger{
+        display: block;
+    }
+    .headerContent{
+        width: 0;
+        visibility: hidden;
+        transition-property: width;
+        transition-duration: .6s;
+        transition-delay:0s;
+    }
+   
+    .headerContent-mobile{
+        /* background-color: black; */
+        position: absolute;
+        top:0;
+        background-color: #fff;
+        right: 0;
+        width: 200px;
+        height: 100vh;
+        border : 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transform: scale(1);
+        visibility:visible;
+    }
+    .hide-menu{
+        display: block;
+        position: absolute;
+        top: 10px;
+        left: -50px;
+        background-color: #fff;
+        border: 1px solid var(--border);
+        color: var(--green);
+        font-size: 1.5em;
+        padding:.3em .5em;
+        border-radius: 50%;
+    }
+    .only-mobile{
+        display: block;
+    }
+    .profile-link>.profile-pic-container{
+        display: none;
+    }
+    .logout-link>button{
+        display: none;
+    }
+    .login-link{
+        margin-right: 0;
+    }
+    .login-link a{
+        display: block;
+        width: 180px;
+        margin: 0;
+        margin-bottom: 1em;
+        text-align: center;
+    }
+    .register-link a{
+        display: block;
+        width: 180px;
+        text-align: center;
+        margin: 0;
+    }
+    .mobile-profile-replace{
+        display: block;
+        margin-bottom: 1em;
+        padding-bottom: .3em;
+        border-bottom: 1px solid var(--green);
+    }
+    .mobile-logout{
+        border-bottom: 1px solid var(--green);
+        padding-bottom: .3em;
+        cursor: pointer;
+    }
+
+}
+@media screen and (max-width: 576px) {
+    .header--logo{
+        display: none;
+    }
+    .header--logo--mobile{
+        display: block;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .header--logo--mobile img{
+        width: 40px;
+        display: block;
+        margin: .3em 0;
+    }
+    .header--search-bar{
+        width: 50%;
+    }
+    .header--search-bar input{
+        width: 80%;
+    }
 }

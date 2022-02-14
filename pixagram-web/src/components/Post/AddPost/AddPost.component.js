@@ -111,7 +111,7 @@ export default class AddPost extends Component {
             content = 
                     <div className="post-form-container post-form-no-auth">
                         <h2 className="login-req-new-post">Please <NavLink exact to = "/login">login</NavLink> to create a new post!!</h2>
-                        <div className="no-auth-location-image">
+                        <div className="no-auth-post-image">
                             <i className="fas fa-edit"></i>
                         </div>
                     </div> 
