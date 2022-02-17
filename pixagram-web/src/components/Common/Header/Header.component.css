@@ -115,7 +115,7 @@ header + div{
         top:0;
         background-color: #fff;
         right: 0;
-        width: 200px;
+        width: 280px;
         height: 100vh;
         border : 1px solid var(--border);
         display: flex;
@@ -151,14 +151,14 @@ header + div{
     }
     .login-link a{
         display: block;
-        width: 180px;
+        width: 250px;
         margin: 0;
         margin-bottom: 1em;
         text-align: center;
     }
     .register-link a{
         display: block;
-        width: 180px;
+        width: 250px;
         text-align: center;
         margin: 0;
     }

@@ -1,5 +1,5 @@
 const JWT = require('jsonwebtoken');
-const configs = require('./../config/index.config');
+const config = require('./../config/index.config');
 const UserModel = require('./../models/user.model');
 
 module.exports = function(req, res, next){
@@ -16,7 +16,7 @@ module.exports = function(req, res, next){
         return next();
     }else{
         //Token available now
-        JWT.verify(token, configs.JWT_SECRET, (err, result) => {
+        JWT.verify(token, config.JWT_SECRET, (err, result) => {
             if(err){
                 console.log('Not valid token');
                 return next(err);

@@ -1,6 +1,6 @@
-const dbConfig = require('./config/db.config');
+const config = require('./config/index.config');
 const mongoose = require('mongoose');
-const connectionURL = dbConfig.connectionURL;
+const connectionURL = config.MONGO_CONNECTION_URL;
 
 mongoose.connect(connectionURL, {
     useUnifiedTopology: true,

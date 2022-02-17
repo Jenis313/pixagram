@@ -1,13 +1,13 @@
 const express = require('express');
 const app = express();
 const path = require('path')
-const PORT = 7000;
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 // DB connection 
 require('./db_init');
 const mainRoute = require('./routes/api.routes');
-
+const config = require('./config/index.config');
+const PORT = config.PORT || 7000;
 
 // Cors
 app.use(cors())
@@ -28,6 +28,17 @@ app.use('/file', express.static(path.join(process.cwd(), 'public'))) // serve fo
 
 // Routes
 app.use('/api', mainRoute);
+
+if(process.env.NODE_ENV === 'production'){
+  app.use(express.static(path.join(__dirname, './../pixagram-web/build')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'pixagram-web', 'build', 'index.js'))
+  })
+}else{
+  app.get('/', (req, res) => {
+    res.send('api running');
+  })
+}
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
