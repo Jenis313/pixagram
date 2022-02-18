@@ -29,16 +29,16 @@ app.use('/file', express.static(path.join(process.cwd(), 'public'))) // serve fo
 // Routes
 app.use('/api', mainRoute);
 
-// if(process.env.NODE_ENV === 'production'){
-//   app.use(express.static(path.join(__dirname, './../pixagram-web/build')));
-//   app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'pixagram-web', 'build', 'index.js'))
-//   })
-// }else{
-//   app.get('/', (req, res) => {
-//     res.send('api running');
-//   })
-// }
+if(process.env.NODE_ENV === 'production'){
+  app.use(express.static(path.join(__dirname, '/pixagram-web/build')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'pixagram-web', 'build', 'index.js'))
+  })
+}else{
+  app.get('/', (req, res) => {
+    res.send('api running');
+  })
+}
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
