@@ -21,8 +21,7 @@
 /pixagram-web/npm-debug.log*
 /pixagram-web/yarn-debug.log*
 /pixagram-web/yarn-error.log*
-
-pixagram-api/node_modules
+node_modules
 deadline.txt
 .env
 TODO.txt
