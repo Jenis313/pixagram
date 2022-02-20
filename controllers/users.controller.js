@@ -3,7 +3,9 @@ const UserModel = require('./../models/user.model');
 const PostModel = require('./../models/post.model');
 const router = express.Router();
 const Uploader = require('./../middlewares/Uploader')('image');
-const MAP_USER_REQ = require('./../helpers/map_user_req')
+const MAP_USER_REQ = require('./../helpers/map_user_req');
+const cloudinary = require('./../utils/cloudinary');
+
 router.route('/')
 .get((req, res, next) => {
     UserModel
@@ -108,34 +110,44 @@ router.route('/:id')
                 })
                 return
             }
-            let oldImage = '';
-            if(req.files){
-                oldImage = user.image;
-                req.body.image = req.body.image =  req.files[0].filename;
-            }
-            let mappedUpdatedUser = MAP_USER_REQ(req.body, user);
-    
-            // save updated req
-            mappedUpdatedUser.save((err, result) => {
-                if(err){
-                    return next(err);
-                }
-                // fs.unlink(path.join(process.cwd(),`uploads/images/${user.image}`), (err, result) => {
-                //   if(err){
-                //       console.log('Cant delete old file in server');
-                //   }  
-                // })
-                console.log(result);
-                res.json(result);
+            // console.log('path --> ', req.files[0].path)
+            cloudinary.uploader.upload(req.files[0].path,(err, result) => {
+                console.log('cloud result', result);
+
+
+// ///////////////////////////////Remove old logic to host images to cloudinary see github repo to see old one//////////////////////
+
+                // let oldImage = '';
+                // if(req.files){
+                //     oldImage = user.image;
+                // }
+                req.body.image =  result.secure_url;
+                req.body.cloud_id = result.public_id;
+                let mappedUpdatedUser = MAP_USER_REQ(req.body, user);
+        
+                // save updated req
+                mappedUpdatedUser.save((err, result) => {
+                    if(err){
+                        return next(err);
+                    }
+                    // fs.unlink(path.join(process.cwd(),`uploads/images/${user.image}`), (err, result) => {
+                    //   if(err){
+                    //       console.log('Cant delete old file in server');
+                    //   }  
+                    // })
+                    console.log(result);
+                    res.json(result);
+                })
+                
+
+// ///////////////////////////////Remove old logic to host images to cloudinary see github repo to see old one//////////////////////
+
+
+
+
             })
         })
-
-
-
-
     }
-
-
 })
 .patch((req,res,next) => {
 

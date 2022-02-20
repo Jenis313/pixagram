@@ -5,7 +5,6 @@ import { NavLink } from 'react-router-dom';
 import { Notify } from '../../../utils/notify';
 import { ErrorHandler } from '../../../utils/errorHandler';
 import { httpClient } from '../../../utils/httpClient';
-const REACT_IMG_URL = process.env.REACT_APP_IMG_URL;
 
 let defaultForm = {
     title: '',

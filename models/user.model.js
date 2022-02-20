@@ -19,7 +19,10 @@ const userSchema = new mongoose.Schema({
     },
     image: {
         type: String,
-        default: 'pp.png'
+        // default: 'pp.png'
+    },
+    cloudinary_id : {
+        type: String
     },
     role: {
         type: Number,

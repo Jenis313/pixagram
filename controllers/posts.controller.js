@@ -3,7 +3,8 @@ const router = express.Router();
 const PostModel = require('./../models/post.model');
 const Uploader = require('./../middlewares/Uploader')('image');
 const MAP_POST_REQ = require('./../helpers/map_post_req');
- 
+const cloudinary = require('./../utils/cloudinary');
+
 router.route('/')
 .get((req, res, next) => {
     const condition = {}
@@ -59,27 +60,49 @@ router.route('/new')
             });
         }
         if(req.files&&req.files.length){ //it means it has image in the request
-            req.body.image =  req.files[0].filename //there will be only one image in this post request so I am doing this otherwise I would do something like
+            /*req.body.image =  req.files[0].filename */ //there will be only one image in this post request so I am doing this otherwise I would do something like
             // req.body.images = req.files.map((item) => {
             //     return item.filename;
             // })
            //we are adding the value in the request body object because this is a middleware and it can add update and delete request.
+
+            // ///////////////////////////////Remove old logic to host images to cloudinary see github repo to see old one//////////////////////
+            cloudinary.uploader.upload(req.files[0].path,(err, result) => {
+                console.log('cloud result', result);
+                req.body.image =  result.secure_url;
+                req.body.cloud_id = result.public_id;
+
+                const newPost = new PostModel({});
+                // Map request object
+                MAP_POST_REQ(req.body, newPost);
+                newPost.author = req.currentUser.id;
+            
+                newPost.save((err, result) => {
+                    if(err){
+                        console.log('error in saving new post');
+                        return next(err);
+                    }
+                    res.json(result);
+                })
+
+            // ///////////////////////////////Remove old logic to host images to cloudinary see github repo to see old one//////////////////////
+            })
+        }else{
+            // No image case
+            const newPost = new PostModel({});
+            // Map request object
+            MAP_POST_REQ(req.body, newPost);
+            newPost.author = req.currentUser.id;
+        
+            newPost.save((err, result) => {
+                if(err){
+                    console.log('error in saving new post');
+                    return next(err);
+                }
+                res.json(result);
+            })
         }
-        // if(req.file){
-        //     req.body.image = req.file.filename; //It can be used in our case but if we want to use multiple images it won't work so above condition works for single multiple images
-        // }
-        const newPost = new PostModel({});
-        // Map request object
-        MAP_POST_REQ(req.body, newPost);
-        newPost.author = req.currentUser.id;
-    
-        newPost.save((err, result) => {
-            if(err){
-                console.log('error in saving new post');
-                return next(err);
-            }
-            res.json(result);
-        })
+
     }
 
     
@@ -118,7 +141,7 @@ router.route('/:id/comment')
                 if(err){
                     return next(err);
                 }
-                result.populate('comments.user', {fullName : 1, _id: 1}, function(err, response) {
+                result.populate('comments.user', {fullName : 1, image : 1, _id: 1}, function(err, response) {
                     res.json(response)
                    });
             }) //

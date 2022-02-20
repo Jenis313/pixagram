@@ -1,15 +1,13 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom'
 import './ProfilePic.component.css';
-import CommonProfilePic from './../../../images/profile.png';
-const REACT_IMG_URL = process.env.REACT_APP_IMG_URL;
 
 export default function ProfilePic(props) {
     // this takes 
     let size = props.size ? props.size : "50px";
     
     const link = props.link ? props.link : '#';
-    const img = props.img ? `${REACT_IMG_URL}/${props.img}` : CommonProfilePic;
+    const img = props.img ? props.img : 'https://res.cloudinary.com/jeniscloud/image/upload/v1645346924/1644291494256-pp_ue535h.png';
     const event = props.e ? props.e : false
     const profile = props.outline
                     ? <div onClick={e => e.stopPropagation()} className='profile-pic-container'>

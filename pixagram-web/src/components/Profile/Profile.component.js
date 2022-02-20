@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { httpClient } from '../../utils/httpClient';
 import Loader from '../Common/Loader/Loader.component';
-import ProfileImg from './../../images/profile.png'
 import PostCard from '../Home/Post_card/Post_card.component';
 import './Profile.component.css';
 import { ErrorHandler } from '../../utils/errorHandler';
 import { NavLink } from 'react-router-dom';
-const REACT_IMG_URL = process.env.REACT_APP_IMG_URL;
 
 
 export default class Profile extends Component {
@@ -97,7 +95,7 @@ export default class Profile extends Component {
                         <div className="profile-container">
                             <div className="top-color"></div>
                             <div className="current-profile-pic">
-                                <img src={this.state.user.image ? `${REACT_IMG_URL}/${this.state.user.image}` : ProfileImg} width="100px" alt="" />
+                                <img src={this.state.user.image ? this.state.user.image : 'https://res.cloudinary.com/jeniscloud/image/upload/v1645346924/1644291494256-pp_ue535h.png'} width="100px" alt="" />
                             </div>
                             {
                                 loggedInUserId ===  userProfileId

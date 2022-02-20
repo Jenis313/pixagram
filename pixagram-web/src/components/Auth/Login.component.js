@@ -3,7 +3,7 @@ import {GlobalContext} from '../../context/GlobalState'; //import globalContext
 
 import './Auth.component.css';
 import Pixagram from './../../images/pixagram.png';
-import { Link, NavLink } from 'react-router-dom';
+import {  NavLink } from 'react-router-dom';
 import { httpClient } from '../../utils/httpClient';
 import { ErrorHandler } from '../../utils/errorHandler';
 const defaultForm = {

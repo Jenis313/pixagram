@@ -4,7 +4,6 @@ import './EditProfile.component.css' //import css
 import { httpClient } from '../../../utils/httpClient';
 import { ErrorHandler } from '../../../utils/errorHandler';
 import { Notify } from '../../../utils/notify';
-const REACT_IMG_URL = process.env.REACT_APP_IMG_URL;
 
 
 export default class EditProfile extends Component {
@@ -109,7 +108,7 @@ export default class EditProfile extends Component {
                                                     {
                                                         this.state.newProfileImg //it means user has just uploaded a new image 
                                                         ? <img src={URL.createObjectURL(this.state.newProfileImg)}></img>
-                                                        : <img src={this.state.user.image ? `${REACT_IMG_URL}/${this.state.user.image}` : '#'}></img>
+                                                        : <img src={this.state.user.image ? this.state.user.image : 'https://res.cloudinary.com/jeniscloud/image/upload/v1645346924/1644291494256-pp_ue535h.png'}></img>
                                                     }
                                                 </div>
                                                 <div className='edit-image-right'>

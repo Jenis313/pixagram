@@ -3,7 +3,6 @@ import './Auth.component.css';
 import Pixagram from './../../images/pixagram.png';
 import { httpClient } from '../../utils/httpClient';
 import { NavLink } from 'react-router-dom';
-import { ErrorHandler } from '../../utils/errorHandler';
 import { Notify } from '../../utils/notify';
 // localStorage.getItem('myData');
 const defaultForm = {

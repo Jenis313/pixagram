@@ -38,19 +38,20 @@ function sizeFilter(req, file, cb){
     }
 }
 
+// we are storing images in cloudinary so diskStorage is empty see github repo for old code or uncomment the following code
 const file_storage = multer.diskStorage({
-    //This is decides where to store the uploaded files in the server with the name we wanted to keep. And don't forget it is a method of multer which is a third party middleware 
-    // filename: (req, file, cb) => {
-    //     cb(null, file.originalname);
-    // }, //In this case everything works fine but if we upload two or more files with same name then the last one will replace previous one(s). So to avoid this situation we just have to think of a solution
-    filename: (req, file, cb) => {
-        cb(null, Date.now()+ '-' + file.originalname);
-        //If we put the date.now method before all the files will have unique name
-        //If the size is even larger we can use 'tmp' package which can be downloaded form npmjs
-    },
-    destination: (req, file, cb) => {
-        cb(null, path.join(process.cwd(), 'public/images'));
-    } 
+//     //This is decides where to store the uploaded files in the server with the name we wanted to keep. And don't forget it is a method of multer which is a third party middleware 
+//     // filename: (req, file, cb) => {
+//     //     cb(null, file.originalname);
+//     // }, //In this case everything works fine but if we upload two or more files with same name then the last one will replace previous one(s). So to avoid this situation we just have to think of a solution
+//     filename: (req, file, cb) => {
+//         cb(null, Date.now()+ '-' + file.originalname);
+//         //If we put the date.now method before all the files will have unique name
+//         //If the size is even larger we can use 'tmp' package which can be downloaded form npmjs
+//     },
+//     destination: (req, file, cb) => {
+//         cb(null, path.join(process.cwd(), 'public/images'));
+//     } 
 })
 
 

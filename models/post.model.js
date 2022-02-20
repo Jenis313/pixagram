@@ -31,6 +31,10 @@ const postSchema = new Schema({
     },
     description: String,
     image: {
+        type: String,
+        default : "https://res.cloudinary.com/jeniscloud/image/upload/v1645366518/Storyboard_Brainstorm_Presentation-min_snrnhu.png"
+    },
+    cloudinary_id : {
         type: String
     },
     likes: [],

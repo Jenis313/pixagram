@@ -11,5 +11,7 @@ module.exports = (reqPost, post) => {
         post.tags = reqPost.tags;
     if(reqPost.image)
         post.image = reqPost.image;
+    if(reqPost.cloud_id)
+        post.cloudinary_id = reqPost.cloud_id;
     return post;
 }

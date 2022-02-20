@@ -11,6 +11,8 @@ module.exports = (reqUser, user) => {
         user.email = reqUser.email;
     if(reqUser.image)
         user.image = reqUser.image;
+    if(reqUser.cloud_id)
+        user.cloudinary_id = reqUser.cloud_id;
     if(reqUser.active)
         user.active = reqUser.active
     return user;

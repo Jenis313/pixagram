@@ -2,10 +2,9 @@
 import React, { Component } from 'react';
 import './Post_card.component.css'
 import ProfilePic from '../../Common/ProfilePic/ProfilePic.component';
-import { NavLink, Redirect, withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import { ErrorHandler } from '../../../utils/errorHandler';
 import { httpClient } from '../../../utils/httpClient';
-const REACT_IMG_URL = process.env.REACT_APP_IMG_URL
 
 class PostCard extends Component{
     constructor(){
@@ -186,7 +185,7 @@ class PostCard extends Component{
                     } to={`/users/${postData.author._id}`} className= "post-card-profile-username"><span>{postData.author.username}</span></NavLink>
                 </div>
                 <div className="location-img">
-                    <img src={`${REACT_IMG_URL}/${postData.image}`} width="100%" alt="image" />
+                    <img src={postData.image} width="100%" alt="image" />
                 </div>
                 <div className="post-description">
                     <h4 className="location-name">{postData.title}</h4>
