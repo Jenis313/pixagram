@@ -9,9 +9,8 @@ const http = axios.create({
 })
 const getHeaders = (isSecured = false) => {
     let options = {
-        'Content-Type' : 'multipart/form-data',
-        'Access-Control-Allow-Origin': '*',
-        "Access-Control-Allow-Headers" : '*'
+        'Content-Type' : 'application/json',
+        "Access-Control-Allow-Origin" : 'https://pixagram-app.herokuapp.com'
     }
     if(isSecured){
         // If we want something to be accessed only if there's  valid token then we pass isSecured parameter as true whenever we call httpClient
