@@ -115,7 +115,8 @@ router.route('/:id')
                 console.log('cloud result', result);
 
 
-// ///////////////////////////////Remove old logic to host images to cloudinary see github repo to see old one//////////////////////
+            // ///////////////////////////////Remove old logic to host images to cloudinary see github repo to see old one//////////////////////
+            // https://www.youtube.com/watch?v=LWB1s6P0wgE
 
                 // let oldImage = '';
                 // if(req.files){

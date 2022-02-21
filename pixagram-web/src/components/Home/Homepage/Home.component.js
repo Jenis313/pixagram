@@ -33,7 +33,7 @@ export default class Home extends Component {
             })
         })
         .catch((err) => {
-            console.log('error is ---> ', err);
+            console.log('error is ---> ', err.data);
             ErrorHandler(err);
         })
         .finally(() => {

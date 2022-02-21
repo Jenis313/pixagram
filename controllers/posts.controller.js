@@ -67,6 +67,7 @@ router.route('/new')
            //we are adding the value in the request body object because this is a middleware and it can add update and delete request.
 
             // ///////////////////////////////Remove old logic to host images to cloudinary see github repo to see old one//////////////////////
+            // https://www.youtube.com/watch?v=LWB1s6P0wgE
             cloudinary.uploader.upload(req.files[0].path,(err, result) => {
                 console.log('cloud result', result);
                 req.body.image =  result.secure_url;
