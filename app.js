@@ -12,6 +12,7 @@ const PORT = config.PORT || 7000;
 
 // Cors
 app.use(cors());
+app.options('*', cors())
 
 // Dev Tool
 var logger = require('morgan');
