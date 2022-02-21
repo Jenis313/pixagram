@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 //serve static files
-app.use('/file', express.static(path.join(process.cwd(), 'public'))) // serve for external request
+// app.use('/file', express.static(path.join(process.cwd(), 'public'))) // serve for external request
 
 // Routes
 app.use('/api', mainRoute);
