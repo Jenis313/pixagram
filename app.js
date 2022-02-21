@@ -1,7 +1,9 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-app.use(cors({credentials: true, origin: true}))
+// app.use(cors({credentials: true, origin: true}))
+app.use(cors());
+app.options('*', cors());
 const path = require('path')
 const cookieParser = require('cookie-parser');
 // DB connection 
