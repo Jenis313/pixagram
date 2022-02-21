@@ -2,10 +2,6 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 // app.use(cors({credentials: true, origin: true}))
-app.use(cors({
-  origin: `https://pixagram-app.herokuapp.com/`,  //react's address
-  credentials: true
-}));
 const path = require('path')
 const cookieParser = require('cookie-parser');
 // DB connection 
@@ -15,6 +11,7 @@ const config = require('./config/index.config');
 const PORT = config.PORT || 7000;
 
 // Cors
+app.use(cors());
 
 // Dev Tool
 var logger = require('morgan');
