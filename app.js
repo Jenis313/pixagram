@@ -1,8 +1,9 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
+app.use(cors())
 const path = require('path')
 const cookieParser = require('cookie-parser');
-const cors = require('cors');
 // DB connection 
 require('./db_init');
 const mainRoute = require('./routes/api.routes');
@@ -10,7 +11,6 @@ const config = require('./config/index.config');
 const PORT = config.PORT || 7000;
 
 // Cors
-app.use(cors())
 
 // Dev Tool
 var logger = require('morgan');
