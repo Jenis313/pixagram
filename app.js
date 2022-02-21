@@ -11,8 +11,11 @@ const config = require('./config/index.config');
 const PORT = config.PORT || 7000;
 
 // Cors
-app.use(cors());
-app.options('*', cors())
+var corsOptions = {
+  origin: ['https://pixagram-app.herokuapp.com', 'https://pixagram-app.herokuapp.com/api'],
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
 // Dev Tool
 var logger = require('morgan');
