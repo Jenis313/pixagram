@@ -2,8 +2,10 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 // app.use(cors({credentials: true, origin: true}))
-app.use(cors());
-app.options('*', cors());
+app.use(cors({
+  origin: `https://pixagram-app.herokuapp.com/`,  //react's address
+  credentials: true
+}));
 const path = require('path')
 const cookieParser = require('cookie-parser');
 // DB connection 
