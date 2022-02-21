@@ -9,7 +9,7 @@ const http = axios.create({
 })
 const getHeaders = (isSecured = false) => {
     let options = {
-        'Content-Type' : 'application/json',
+        'Content-Type' : 'multipart/form-data',
         'Access-Control-Allow-Origin': '*'
     }
     if(isSecured){
