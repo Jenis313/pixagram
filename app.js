@@ -32,9 +32,9 @@ app.use(cookieParser());
 app.use('/api', mainRoute);
 
 if(process.env.NODE_ENV === 'production'){
-  app.use(express.static(path.join(__dirname, '/pixagram-web/build')));
+  app.use(express.static(path.resolve(process.cwd(), 'pixagram-web/build')))
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'pixagram-web', 'build', 'index.js'))
+    res.sendFile(path.resolve(process.cwd(), 'pixagram-web/build/index.html'))
   })
 }else{
   app.get('/', (req, res) => {
