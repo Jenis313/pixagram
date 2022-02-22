@@ -21,7 +21,7 @@ export default class SearchPost extends Component {
         })
         httpClient.GET(`post/search?q=${this.props.history.location.search}`, false)
         .then((results) => {
-            // console.log(' data is ----> ',results.data)
+            console.log(' data is ----> ',results.data)
             this.setState({
                 posts : results.data
             })

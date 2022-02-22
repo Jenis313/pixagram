@@ -143,7 +143,10 @@ router.route('/:id/comment')
                     return next(err);
                 }
                 result.populate('comments.user', {fullName : 1, image : 1, _id: 1}, function(err, response) {
-                    res.json(response)
+                    response.populate('author', {username:1, image : 1, _id: 1 }, (err, response) => {
+
+                        res.json(response)
+                    })
                    });
             }) //
 
@@ -201,6 +204,10 @@ router.route('/search')
             {description : { $regex: '.*' + q + '.*' }}
         ]
     })
+    .populate('author', {username:1, image : 1, _id: 1 }) //gives username and id
+    .populate('comments.user', {fullName : 1, image : 1, _id: 1}) //gives id only
+    .populate('likes.user', {fullName : 1, _id: 1})
+    // https://stackoverflow.com/questions/14594511/mongoose-populate-within-an-object?rq=1
     .exec()
     .then((data) => res.json(data))
     .catch(err => {
