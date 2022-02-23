@@ -7,6 +7,8 @@ const http = axios.create({
     timeout: 20000,
     timeoutErrorMessage: 'Request Timeout'
 })
+
+// header's information here
 const getHeaders = (isSecured = false) => {
     let options = {
         'Content-Type' : 'application/json'
@@ -17,6 +19,7 @@ const getHeaders = (isSecured = false) => {
     }
     return options;
 }
+// http requests configuration
 const GET = (url, isSecured = false, params = {}) => {
     return http.get(url, {
         headers : getHeaders(isSecured),

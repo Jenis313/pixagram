@@ -20,9 +20,7 @@ function generateToken(data){
 
 router.route('/login')
 .post((req, res, next) => {
-    // TODO : Validate request object with express validator
-
-    console.log('Login req body --> ', req.body);
+    // console.log('Login req body --> ', req.body);
     // Check if the user exists in database
     // if it doesn't exist give user error message
     // if exists

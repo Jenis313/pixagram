@@ -91,6 +91,26 @@
 
 
 /* Media queries */
+@media screen and (min-width: 3400px) {
+    .comments-main>.container{
+        width: 38%;
+    } 
+}
+@media screen and (min-width: 2400px) {
+    .comments-main>.container{
+        width: 50%;
+    } 
+}
+@media screen and (min-width: 1900px) {
+    .comments-main>.container{
+        width: 60%;
+    }
+}
+@media screen and (min-width: 1600px) {
+    .comments-main>.container{
+        width: 66%;
+    }
+}
 @media screen and (max-width: 576px) {
     .comments-main>.container{
         display: block;

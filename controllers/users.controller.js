@@ -4,7 +4,7 @@ const PostModel = require('./../models/post.model');
 const router = express.Router();
 const Uploader = require('./../middlewares/Uploader')('image');
 const MAP_USER_REQ = require('./../helpers/map_user_req');
-const cloudinary = require('./../utils/cloudinary');
+const cloudinary = require('./../config/cloudinary.config');
 
 router.route('/')
 .get((req, res, next) => {
@@ -36,8 +36,6 @@ router.route('/:id/posts')
         _id:-1 //IT reverses the data flow
     })
     .populate('author', {username : 1, image: 1, _id: 1})
-    // .limit(1) // it limits the result
-    // .skip(2) //For skipping
     .exec((err, result) => {
         if(err){
             next(err);
@@ -66,7 +64,7 @@ router.route('/:id')
         })
 })
 .put(Uploader.array('images')/*review Concept section on top also check while importing */, (req,res,next) => {
-
+// uploader always takes an image so I am using .put for image and text, or image only and .patch for text only update. 
     if(!req.currentUser){
         // no valid token
         next({
@@ -112,38 +110,23 @@ router.route('/:id')
             }
             // console.log('path --> ', req.files[0].path)
             cloudinary.uploader.upload(req.files[0].path,(err, result) => {
-                console.log('cloud result', result);
-
+                // console.log('cloud result', result);
 
             // ///////////////////////////////Remove old logic to host images to cloudinary see github repo to see old one//////////////////////
             // https://www.youtube.com/watch?v=LWB1s6P0wgE
 
-                // let oldImage = '';
-                // if(req.files){
-                //     oldImage = user.image;
-                // }
                 req.body.image =  result.secure_url;
                 req.body.cloud_id = result.public_id;
                 let mappedUpdatedUser = MAP_USER_REQ(req.body, user);
-        
                 // save updated req
                 mappedUpdatedUser.save((err, result) => {
                     if(err){
                         return next(err);
                     }
-                    // fs.unlink(path.join(process.cwd(),`uploads/images/${user.image}`), (err, result) => {
-                    //   if(err){
-                    //       console.log('Cant delete old file in server');
-                    //   }  
-                    // })
                     console.log(result);
                     res.json(result);
                 })
-                
-
-// ///////////////////////////////Remove old logic to host images to cloudinary see github repo to see old one//////////////////////
-
-
+                // ///////////////////////////////Remove old logic to host images to cloudinary see github repo to see old one//////////////////////
 
 
             })
@@ -199,8 +182,5 @@ router.route('/:id')
             })
         })
     }
-})
-.delete((req, res, next) => {
-    // If req.params.id === currentUser.id allow user to delete otherwise can't delete
 })
 module.exports = router;

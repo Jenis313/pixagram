@@ -14,6 +14,7 @@ module.exports = function(req, res, next){
     if(!token){
         console.log('No token')
         return next();
+        // if you don't want to give access to some routes at all then just give message saying not authenticated here instead of passing to next middleware
     }else{
         //Token available now
         JWT.verify(token, config.JWT_SECRET, (err, result) => {

@@ -1,17 +1,15 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-// app.use(cors({credentials: true, origin: true}))
 const path = require('path')
 const cookieParser = require('cookie-parser');
-// DB connection 
-require('./db_init');
 const mainRoute = require('./routes/api.routes');
 const config = require('./config/index.config');
 const PORT = config.PORT || 7000;
+// DB connection 
+require('./db_init');
 
 // Cors
-
 app.use(cors());
 
 // Dev Tool
@@ -24,9 +22,6 @@ app.use(express.urlencoded({ extended: true }));
 
 // user cookie parser 
 app.use(cookieParser());
-
-//serve static files
-// app.use('/file', express.static(path.join(process.cwd(), 'public'))) // serve for external request
 
 // Routes
 app.use('/api', mainRoute);
@@ -52,19 +47,11 @@ app.use(function(req, res, next) {
 // error handler middleware
 app.use(function(err, req, res, next) {
   console.log('ERROR Handling middleware in execution!!! --> ', err);
-
   res.status(err.status || 500);
   res.json({
     msg: err.msg || err,
     status: err.status || 404
   })
-
-//   // render the error page
-//   res.render('./pages/error', {
-//     msg: err.msg || err,
-//     status: err.status,
-//     currentUser: req.currentUser
-//   });
 });
 
 app.listen(PORT, (err) => {

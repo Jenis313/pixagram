@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Notify } from "./notify";
 export const ErrorHandler = (error) => {
     // Handle all of your application's error in this method

@@ -1,6 +1,8 @@
 import React from "react";
 import './Sidebar.component.css';
 export default function Sidebar() {
+    const d = new Date();
+    let currentYear = d.getFullYear();
     return (
         <div className="footer">
             <div className="footer-main-cont">
@@ -25,7 +27,7 @@ export default function Sidebar() {
                 </div>
             </div>
             <div className="copy-right">
-                <p>TourGram Inc © 2021 . All rights reserved</p>
+                <p>Pixagram Inc © {currentYear} . All rights reserved</p>
             </div>
         </div>
     )

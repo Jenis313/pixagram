@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {GlobalContext} from '../../context/GlobalState'; //import globalContext
-
 import './Auth.component.css';
 import Pixagram from './../../images/pixagram.png';
 import {  NavLink } from 'react-router-dom';

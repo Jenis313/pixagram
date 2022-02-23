@@ -3,7 +3,7 @@ const router = express.Router();
 const PostModel = require('./../models/post.model');
 const Uploader = require('./../middlewares/Uploader')('image');
 const MAP_POST_REQ = require('./../helpers/map_post_req');
-const cloudinary = require('./../utils/cloudinary');
+const cloudinary = require('./../config/cloudinary.config');
 
 router.route('/')
 .get((req, res, next) => {
@@ -142,6 +142,7 @@ router.route('/:id/comment')
                 if(err){
                     return next(err);
                 }
+                // good example of populate after save response
                 result.populate('comments.user', {fullName : 1, image : 1, _id: 1}, function(err, response) {
                     response.populate('author', {username:1, image : 1, _id: 1 }, (err, response) => {
 
@@ -178,10 +179,9 @@ router.route('/:id/like')
                 status : 404
             })
         }
-        // res.send(req.body.liked)
+        // posible security issue
         post.likesCount = req.body.likesCount;
         post.likes = req.body.likes;
-        // post.likes.push(req.currentUser._id.toString())
         // console.log('currentUser -------------------->',req.currentUser._id.toString())
         post.save((err, result) => {
             if(err){
@@ -233,9 +233,6 @@ router.route('/:id')
     .catch((err) => {
         next(err)
     })
-})
-.put((req, res, next) => {
-   
 })
 .delete((req, res, next) => {
     if(!req.currentUser){
