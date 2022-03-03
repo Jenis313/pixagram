@@ -5,6 +5,7 @@ import ProfilePic from '../../Common/ProfilePic/ProfilePic.component';
 import { NavLink, withRouter } from 'react-router-dom';
 import { ErrorHandler } from '../../../utils/errorHandler';
 import { httpClient } from '../../../utils/httpClient';
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 class PostCard extends Component{
     constructor(){
@@ -84,6 +85,11 @@ class PostCard extends Component{
         })
 
     }
+    handleShare(e){
+        e.stopPropagation()
+        // https://pixagramweb.herokuapp.com/post/621461c3b4b8e1f204538e01
+        navigator.clipboard.writeText(`https://pixagramweb.herokuapp.com/post/${this.props.data._id}`);
+    }
     render(){
         let postData = this.props.data;
         // console.log('postData --> ', postData)
@@ -135,7 +141,11 @@ class PostCard extends Component{
                         <p className="post-like-count"><span>{postData.commentsCount}</span> comments</p>
                     </div>
                     <div className="post-interact post-share">
-                        <i className="fas fa-share post-interact-icon"></i>
+                        <i 
+                            onClick={(e) => {
+                                            this.handleShare(e)
+                                        }} className="fas fa-share post-interact-icon">
+                        </i>
                     </div>
                 </>
         }else{
@@ -148,7 +158,11 @@ class PostCard extends Component{
                         <p className="post-like-count"><span>{postData.commentsCount}</span> comments</p>
                     </div>
                     <div className="post-interact post-share">
-                        <i className="fas fa-share post-interact-icon"></i>
+                        <i 
+                            onClick={(e) => {
+                                            this.handleShare(e)
+                                        }} className="fas fa-share post-interact-icon">
+                        </i>
                     </div>
                 </>
         }
