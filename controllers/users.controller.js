@@ -20,7 +20,17 @@ router.route('/')
             next(err);
             return
         }
-        res.json(result);
+        console.log('result is ----->', result);
+        let filteredUser = result.map(item => {
+            return {
+                _id: item._id,
+                fullName: item.fullName,
+                username: item.username,
+                cloudinary_id: item.cloudinary_id,
+                image: item.image
+            }
+        })
+        res.json(filteredUser);
     })
 })
 
@@ -60,7 +70,13 @@ router.route('/:id')
                 });
                 return
             }
-            res.json(result);
+            res.json({
+                _id: result._id,
+                fullName: result.fullName,
+                username: result.username,
+                cloudinary_id: result.cloudinary_id,
+                image: result.image
+            });
         })
 })
 .put(Uploader.array('images')/*review Concept section on top also check while importing */, (req,res,next) => {

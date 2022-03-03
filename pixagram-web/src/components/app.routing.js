@@ -10,6 +10,7 @@ import SearchPost from './Post/SearchPost/SearchPost.component';
 import Post from './Post/ViewPost/PostModal/Post.component';
 import EditProfile from './Profile/EditProfile/EditProfile.component';
 import Profile from './Profile/Profile.component';
+import Api from './Api/Api.component';
 
 import {MyProvider} from './../context/GlobalState.js';
 //https://www.youtube.com/watch?v=XLJN4JfniH4
@@ -32,6 +33,7 @@ export default function AppRouting(props) {
                     <Route exact path= '/post/new' component={AddPost}></Route>
                     {/* https://stackoverflow.com/questions/47705126/exclude-a-value-for-a-path-parameter-in-react-router-by-type */}
                     <Route exact path= '/post/:postId' component={Post}></Route>
+                    <Route exact path= '/api' render={(props) => <Api {...props} fromApi={true} />}></Route> {/*https://ui.dev/react-router-pass-props-to-components*/}
                     <Route component={NotFound}></Route>
                 </Switch>
             </BrowserRouter>

@@ -23,10 +23,10 @@ export default class EditProfile extends Component {
     }
 
     componentDidMount(){
-        console.log('component successfully loaded!');
+        // console.log('component successfully loaded!');
         httpClient.GET(`/users/${JSON.parse(localStorage.getItem('user'))._id}`)
         .then((user) => {
-            console.log('logged in user is -> ',user.data.image);
+            // console.log('logged in user is -> ',user.data.image);
             this.setState({
                user : {
                    ...user.data
@@ -40,7 +40,7 @@ export default class EditProfile extends Component {
     handleChange(e){
         const {name, value, type, files} = e.target;
         if(type === 'file'){
-            console.log(type, files);
+            // console.log(type, files);
             this.setState({
                 newProfileImg : files[0]
             })
@@ -53,7 +53,7 @@ export default class EditProfile extends Component {
         }))
     }
     handleSubmit(e){
-        console.log('state->', this.state)
+        // console.log('state->', this.state)
         e.preventDefault();
         if(!this.state.newProfileImg){
             httpClient.PATCH(`/users/${JSON.parse(localStorage.getItem('user'))._id}`,this.state.user)
@@ -88,7 +88,7 @@ export default class EditProfile extends Component {
     }
  
     render() {
-        console.log('stateeeee', this.state)
+        // console.log('stateeeee', this.state)
         let profileEditForm;
         // check if loggedIn
         if(localStorage.getItem('token')){
