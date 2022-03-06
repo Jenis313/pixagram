@@ -1,0 +1,10 @@
+MONGO_CONNECTION_URL = 'mongo atlas url'
+JWT_SECRET = anySecretKeyForJSONwebtoken
+PORT = 7000
+NODE_ENV = development
+
+# I'm using cloudinary for image storage so you need to figure out your cloudinary setups: https://www.youtube.com/watch?v=LWB1s6P0wgE&t=1130s
+
+cloudinary_cloud_name = your_cloudinary_cloud_name
+cloudinary_api_key = your_cloudinary_api_key
+cloudinary_api_secret = your_cloudinary_api_secret
