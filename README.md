@@ -45,6 +45,7 @@ To see the all api endpoints visit <a href = "https://pixagramweb.herokuapp.com/
 
 ## ⛏️ TODO <a name = "todo"></a>### TODO
 - [ ] Like and Comment Issue.
+- [ ] Filter image size in uploader middleware.
 
 ## ✍️ Authors <a name = "authors"></a>
 <a href="https://github.com/Jenis313">
