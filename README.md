@@ -36,7 +36,7 @@ rename .envsample to .env and add MONGO_CONNECTION_URL(mongo atlas url), JWT_SEC
 app.js
 ```
 ## 🎈 Usage <a name="usage"></a>
-To see the all api endpoints visit <a href = "https://pixagramweb.herokuapp.com/">this</a> page. To run frontend see <a href = "https://github.com/Jenis313/pixagram/tree/master/pixagram-web#readme">this</a>
+To see the all api endpoints visit <a href = "https://pixagramweb.herokuapp.com/api">this</a> page. To run frontend see <a href = "https://github.com/Jenis313/pixagram/tree/master/pixagram-web#readme">this</a>
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 - [MongoDB](https://www.postgresql.org/) - Database
