@@ -12,6 +12,7 @@
 ## 📝 Table of Contents
 - [About](#about)
 - [Getting Started](#getting_started)
+- [Usages and APIs](#usage)
 - [Built Using](#built_using)
 - [TODO](#todo)
 - [Authors](#authors)
