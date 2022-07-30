@@ -199,7 +199,7 @@ class PostCard extends Component{
                     } to={`/users/${postData.author._id}`} className= "post-card-profile-username"><span>{postData.author.username}</span></NavLink>
                 </div>
                 <div className="location-img">
-                    <img src={postData.image} width="100%" alt="image" />
+                    <img src={postData.image} width="100%" alt="image" loading="lazy" />
                 </div>
                 <div className="post-description">
                     <h4 className="location-name">{postData.title}</h4>
