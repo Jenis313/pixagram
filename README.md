@@ -5,7 +5,7 @@
 
 <h3 align="center">Pixagram</h3>
 
-<p align="center"> https://pixagramweb.herokuapp.com/ A mini social app which looks like instagram-clone | reddit clone
+<p align="center"> https://pixagram-app.vercel.app/home A mini social app which looks like instagram-clone | reddit clone
     <br> 
 </p>
 
@@ -19,7 +19,7 @@
 - [Acknowledgments](#acknowledgement)
 
 ## 🧐 About <a name = "about"></a>
-This is a small social web app which allows users to register account, post image, see posts by other people. <a href = "https://pixagramweb.herokuapp.com/">Live</a>.
+This is a small social web app which allows users to register account, post image, see posts by other people. <a href = "https://pixagram-app.vercel.app/home">Live</a>.
 ## 🏁 Getting Started <a name = "getting_started"></a>
 To run this project on your machine
 ```
@@ -37,7 +37,7 @@ rename .envsample to .env and add MONGO_CONNECTION_URL(mongo atlas url), JWT_SEC
 app.js
 ```
 ## 🎈 Usage <a name="usage"></a>
-To see the all api endpoints visit <a href = "https://pixagramweb.herokuapp.com/api">this</a> page. To run frontend see <a href = "https://github.com/Jenis313/pixagram/tree/master/pixagram-web#readme">this</a>
+To see the all api endpoints visit <a href = "https://pixagram-api.onrender.com/api/">this</a> page. To run frontend see <a href = "https://github.com/Jenis313/pixagram/tree/master/pixagram-web#readme">this</a>
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 - [MongoDB](https://www.postgresql.org/) - Database
