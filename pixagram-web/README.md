@@ -5,7 +5,7 @@
 
 <h3 align="center">Pixagram</h3>
 
-<p align="center"> https://pixagramweb.herokuapp.com/ A mini social app which looks like instagram-clone | reddit clone
+<p align="center"> https://pixagram-app.vercel.app/home A mini social app which looks like instagram-clone | reddit clone
     <br> 
 </p>
 
